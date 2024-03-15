@@ -25,19 +25,19 @@
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .title-and-authors {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+        header h1 {
+            margin-bottom: 10px; /* Adjust based on your design */
         }
-        .title-and-authors span {
-            margin: 5px 10px; /* Adjusts space between author names */
+        .authors {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: #ffffff;
+            padding-bottom: 20px; /* Adjust padding to match header's style */
+        }
+        .authors span {
+            margin: 0 10px; /* Adjusts space between author names */
         }
         .leaderboards, .abstract {
             background-color: #ffffff;
@@ -48,10 +48,6 @@
         }
         .badges img {
             margin-right: 5px;
-        }
-        h1 {
-            color: #333;
-            margin-bottom: 15px;
         }
         a {
             color: #007bff;
@@ -76,14 +72,16 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title-and-authors">
-            <h1>OmniCount</h1>
+    <header>
+        <h1>OmniCount</h1>
+        <div class="authors">
             <span><a href="https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en">Anindya Mondal*</a></span>
             <span><a href="https://sauradip.github.io/">Sauradip Nag*</a></span>
             <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu</a></span>
             <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta</a></span>
         </div>
+    </header>
+    <div class="container">
         <div class="leaderboards">
             <h2>Leaderboards</h2>
             <div class="badges">
@@ -96,7 +94,7 @@
         <div class="abstract">
             <h2>Abstract</h2>
             <p>Object counting is pivotal for understanding the composition of scenes... Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions and heralding a new era in object counting technology.</p>
-            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline_v2.png?token=GHSAT0AAAAAACPMGHIE5OWD2XBDEM325GXCZPUO4NA" alt="OmniCount Pipeline" class="full-width">
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline_v2.png?token=GHSAT0AAAAAACPUFCOKS6GSKSXHH3DQLDXKZPUZD6A" alt="OmniCount Pipeline" class="full-width">
         </div>
     </div>
     <footer>
