@@ -25,10 +25,11 @@
             background-color: #ffffff;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .badges {
+        .leaderboards {
             margin: 20px 0;
+            text-align: center;
         }
-        img.badge {
+        .badges img {
             margin-right: 5px;
         }
         h1, h2 {
@@ -45,17 +46,22 @@
             line-height: 1.6;
         }
         .authors {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
-        .abstract {
+        .abstract, .leaderboards {
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         img.full-width {
             max-width: 100%;
@@ -73,20 +79,21 @@
         <h1>OmniCount</h1>
     </header>
     <div class="container">
-        <div class="badges">
-            <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
-            <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
-            <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
-            <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191" alt="PWC Badge">
-        </div>
         <div class="authors">
-            <h2>Authors</h2>
-            <ul>
-                <li><a href="https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en">Anindya Mondal*</a></li>
-                <li><a href="https://sauradip.github.io/">Sauradip Nag*</a></li>
-                <li><a href="https://surrey-uplab.github.io/">Xiatian Zhu</a></li>
-                <li><a href="https://sites.google.com/site/2adutta/">Anjan Dutta</a></li>
-            </ul>
+            <h2>Authors:</h2>
+            <a href="https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en">Anindya Mondal*</a>,
+            <a href="https://sauradip.github.io/">Sauradip Nag*</a>,
+            <a href="https://surrey-uplab.github.io/">Xiatian Zhu</a>,
+            <a href="https://sites.google.com/site/2adutta/">Anjan Dutta</a>
+        </div>
+        <div class="leaderboards">
+            <h2>Leaderboards</h2>
+            <div class="badges">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191" alt="PWC Badge">
+            </div>
         </div>
         <div class="abstract">
             <h2>Abstract</h2>
