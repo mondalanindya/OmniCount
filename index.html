@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCount</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .badge {
+            margin-right: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>OmniCount</h1>
+    <p>
+        <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
+        <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
+        <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
+        <img class="badge" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191" alt="PWC Badge">
+    </p>
+    <h2>Authors</h2>
+    <ul>
+        <li><a href="https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en">Anindya Mondal*</a></li>
+        <li><a href="https://sauradip.github.io/">Sauradip Nag*</a></li>
+        <li><a href="https://surrey-uplab.github.io/">Xiatian Zhu</a></li>
+        <li><a href="https://sites.google.com/site/2adutta/">Anjan Dutta</a></li>
+    </ul>
+    <p>The code and the Omnicount-191 dataset will be released after publication. Please stay tuned!</p>
+    <p><a href="https://arxiv.org/abs/2403.05435">[ArXiv]</a></p>
+    <h2>Abstract</h2>
+    <p>Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a new, more practical approach enabling simultaneous counting of multiple object categories using an open vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging point prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions and heralding a new era in object counting technology.</p>
+    <p><img src="https://github.com/mondalanindya/OmniCount/blob/main/assets/figs/pipeline_v2.png" alt="OmniCount Pipeline"></p>
+</body>
+</html>
