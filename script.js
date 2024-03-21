@@ -1,26 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.image-compare-container').forEach(container => {
-        const slider = container.querySelector('.slider');
-        const overlay = container.querySelector('.overlay');
-        let isDown = false;
+        let slider = container.querySelector('.slider');
+        let overlay = container.querySelector('.overlay');
+        let isPressed = false;
 
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            e.preventDefault(); // Prevent unwanted text selection
-            document.addEventListener('mousemove', mouseMoveHandler);
-            document.addEventListener('mouseup', () => {
-                isDown = false;
-                document.removeEventListener('mousemove', mouseMoveHandler);
-            }, { once: true });
+        const moveSlider = (e) => {
+            if (!isPressed) return;
+            // Calculate the new position of the slider.
+            let rect = container.getBoundingClientRect();
+            let newPos = e.clientX - rect.left;
+            let width = rect.right - rect.left;
+
+            // Limit the slider position to container bounds.
+            newPos = Math.max(0, Math.min(newPos, width));
+
+            // Update overlay width and slider position.
+            overlay.style.width = `${newPos}px`;
+            slider.style.left = `${newPos}px`;
+        };
+
+        slider.addEventListener('mousedown', () => {
+            isPressed = true;
         });
 
-        const mouseMoveHandler = (e) => {
-            if (!isDown) return;
-            const rect = container.getBoundingClientRect();
-            const x = e.pageX - rect.left;
-            const walk = Math.max(0, Math.min(x, rect.width));
-            slider.style.left = `${walk}px`;
-            overlay.style.clipPath = `inset(0 ${rect.width - walk}px 0 0)`;
-        };
+        document.addEventListener('mousemove', moveSlider);
+        document.addEventListener('mouseup', () => isPressed = false);
     });
 });
