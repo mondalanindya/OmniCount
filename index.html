@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCount</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin-bottom: 10px; /* Adjust based on your design */
+        }
+        .authors {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: #ffffff;
+            padding-bottom: 20px; /* Adjust padding to match header's style */
+        }
+        .authors span {
+            margin: 0 10px; /* Adjusts space between author names */
+        }
+        .leaderboards, .abstract {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .badges img {
+            margin-right: 5px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        img.full-width {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>OmniCount</h1>
+        <div class="authors">
+            <span><a href="https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en">Anindya Mondal*</a></span>
+            <span><a href="https://sauradip.github.io/">Sauradip Nag*</a></span>
+            <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu</a></span>
+            <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta</a></span>
+        </div>
+    </header>
+    <div class="container">
+        <div class="leaderboards">
+            <h2>Leaderboards</h2>
+            <div class="badges">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191" alt="PWC Badge">
+            </div>
+        </div>
+        <div class="abstract">
+            <h2>Abstract</h2>
+            <p> Object counting is pivotal for understanding the composition of scenes.
+Previously, this task was dominated by class-specific methods, which have
+gradually evolved into more adaptable class-agnostic strategies. However, these
+strategies come with their own set of limitations, such as the need for manual
+exemplar input and multiple passes for multiple categories, resulting in
+significant inefficiencies. This paper introduces a new, more practical
+approach enabling simultaneous counting of multiple object categories using an
+open vocabulary framework. Our solution, OmniCount, stands out by using
+semantic and geometric insights from pre-trained models to count multiple
+categories of objects as specified by users, all without additional training.
+OmniCount distinguishes itself by generating precise object masks and
+leveraging point prompts via the Segment Anything Model for efficient counting.
+To evaluate OmniCount, we created the OmniCount-191 benchmark, a
+first-of-its-kind dataset with multi-label object counts, including points,
+bounding boxes, and VQA annotations. Our comprehensive evaluation in
+OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's
+exceptional performance, significantly outpacing existing solutions and
+heralding a new era in object counting technology.</p>
+            <img src="https://live.staticflickr.com/65535/53591545555_273da9ad0c_h.jpg" alt="OmniCount Pipeline" class="full-width">
+        </div>
+    </div>
+    <div class="viz">
+      <h2>Visualizations</h2>
+      <p>Viz here</p>
+    </div>
+    <footer>
+        &copy; 2024 OmniCount Project. All rights reserved.
+    </footer>
+</body>
+</html>
