@@ -71,6 +71,9 @@
             height: 150px;
             overflow: hidden;
             margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .image-compare-container img, .overlay {
             position: absolute;
@@ -92,7 +95,7 @@
         .image-caption {
             text-align: center;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -110,26 +113,28 @@
         <div class="leaderboards">
             <h2>Leaderboards</h2>
             <div class="badges">
-                <!-- Badges here -->
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
+                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191" alt="PWC Badge">
             </div>
         </div>
         <div class="abstract">
             <h2>Abstract</h2>
-            <p> <!-- Abstract content here --> </p>
+            <p>Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a new, more practical approach enabling simultaneous counting of multiple object categories using an open vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging point prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions and heralding a new era in object counting technology.</p>
+            <img src="https://live.staticflickr.com/65535/53591545555_273da9ad0c_h.jpg" alt="OmniCount Pipeline" class="full-width">
         </div>
         <div class="viz">
             <h2>Visualizations</h2>
             <div class="comparison-blocks">
-                <!-- Example Pair 1 -->
                 <div class="image-compare-container">
                     <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1.jpg" alt="Image 1A">
                     <div class="overlay">
                         <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1_mask.png" alt="Image 1B">
                     </div>
                     <div class="slider"></div>
+                    <p class="image-caption">ORANGES: 9, APPLES: 10</p>
                 </div>
-                <p class="image-caption">ORANGES: 9, APPLES: 10</p>
-                <!-- Repeat for each pair -->
             </div>
         </div>
     </div>
