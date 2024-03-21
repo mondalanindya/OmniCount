@@ -11,33 +11,42 @@ body {
     margin: auto;
     padding: 20px;
 }
-header, .leaderboards, .abstract, .viz, footer {
+header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.authors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.authors span {
+    margin: 0 10px;
+}
+.leaderboards, .abstract, .viz {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 20px;
 }
-.header h1, .viz h2 {
-    margin-bottom: 10px;
-}
-.authors span, .image-caption {
-    margin: 0 10px;
-    text-align: center;
-    display: block; /* For image captions */
-    font-weight: bold;
+.viz {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 .image-compare-container {
     position: relative;
-    width: 500px;
-    height: 300px;
-    overflow: hidden;
+    width: 45%; /* Adjust based on container size for 2 per row */
     margin-bottom: 20px;
 }
 .image-compare-container img, .overlay {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 .overlay {
     clip-path: inset(0 50% 0 0);
@@ -51,17 +60,15 @@ header, .leaderboards, .abstract, .viz, footer {
     cursor: ew-resize;
     left: 50%;
 }
-.badges img {
-    margin-right: 5px;
-}
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
+.image-caption {
+    width: 45%; /* Match .image-compare-container */
+    text-align: center;
+    margin: 0 auto 20px; /* Center caption and add spacing */
+    font-weight: bold;
 }
 footer {
     text-align: center;
     padding: 20px 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
