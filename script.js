@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
-            e.preventDefault();
+            e.preventDefault(); // Prevent unwanted text selection
             document.addEventListener('mousemove', mouseMoveHandler);
             document.addEventListener('mouseup', () => {
                 isDown = false;
