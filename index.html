@@ -65,15 +65,17 @@
             justify-content: space-around;
             gap: 20px;
         }
-        .image-compare-container {
-            position: relative;
-            width: 250px;
-            height: 200px; /* Increased height */
-            overflow: hidden;
-            margin-bottom: 10px;
+        .image-block {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 250px;
+        }
+        .image-compare-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
         }
         .image-compare-container img, .overlay {
             position: absolute;
@@ -88,17 +90,17 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: #fff;
+            background: #ffffff;
             cursor: ew-resize;
             left: 50%;
         }
         .image-caption {
             text-align: center;
             font-weight: bold;
-            margin-top: 20px; /* Increased spacing */
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-            padding: 5px; /* Add some padding */
-            border-radius: 4px; /* Rounded corners */
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -116,7 +118,7 @@
         <div class="leaderboards">
             <h2>Leaderboards</h2>
             <div class="badges">
-                <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
+                <!-- Badges here --><img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
                 <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
                 <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
                 <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191" alt="PWC Badge">
@@ -130,22 +132,25 @@
         <div class="viz">
             <h2>Visualizations</h2>
             <div class="comparison-blocks">
-                <div class="image-compare-container">
-                    <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1.jpg" alt="Image 1A">
-                    <div class="overlay">
-                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1_mask.png" alt="Image 1B">
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
                     </div>
-                    <div class="slider"></div>
-                    <p class="image-caption">ORANGES: 9, APPLES: 10</p>
+                    <p class="image-caption">Potatoes: 4, Apples: 2, Bananas: 3, Onions: 4</p>
                 </div>
-
-                <div class="image-compare-container">
-                    <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/birds1.jpg" alt="Image 1A">
-                    <div class="overlay">
-                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/birds1_mask.png" alt="Image 1B">
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/birds1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/birds1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
                     </div>
-                    <div class="slider"></div>
-                    <p class="image-caption">B: 9, A: 10</p>
+                    <p class="image-caption">Crow: 9, Pigeons: 10</p>
                 </div>
             </div>
         </div>
@@ -153,7 +158,6 @@
     <footer>
         The site is currently being updated. Please check back later. 
     </footer>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.image-compare-container').forEach(container => {
@@ -177,6 +181,7 @@
                     const x = e.pageX - rect.left;
                     const walk = Math.max(0, Math.min(x, rect.width));
                     slider.style.left = `${walk}px`;
+                    // overlay.style.clipPath = `inset
                     overlay.style.clipPath = `inset(0 ${rect.width - walk}px 0 0)`;
                 });
             });
