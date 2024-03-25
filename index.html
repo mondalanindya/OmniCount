@@ -7,13 +7,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             background-color: #f0f2f5;
             color: #333;
         }
+        .content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+
         .container {
             max-width: 1200px;
             margin: auto;
@@ -33,10 +40,17 @@
             background-color: #ffffff;
             padding-bottom: 20px;
         }
-        .authors span {
+
+        .authors a {
+            color: #007bff;
+            text-decoration: none;
             margin: 0 10px;
         }
-        .leaderboards, .abstract, .viz {
+
+        .authors a:hover {
+            text-decoration: underline;
+        }
+        .leaderboards, .abstract, .viz , .method{
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
@@ -50,9 +64,9 @@
             color: #007bff;
             text-decoration: none;
         }
-        a:hover {
+        /* a:hover {
             text-decoration: underline;
-        }
+        } */
         img.full-width {
             max-width: 100%;
             height: auto;
@@ -102,13 +116,29 @@
             border-radius: 4px;
             margin-top: 5px;
         }
-    </style>
+        pre {
+            background-color: #eee;
+            border: 1px solid #999;
+            border-radius: 5px;
+            padding: 10px;
+            white-space: pre-wrap;
+            width: 80%;
+            text-align: left;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+            </style>
 </head>
 <body>
     <header>
         <h1>OmniCount</h1>
         <div class="authors">
-            <span><a href="https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en">Anindya Mondal*</a></span>
+            <span><a href="https://mondalanindya.github.io">Anindya Mondal*</a></span>
             <span><a href="https://sauradip.github.io/">Sauradip Nag*</a></span>
             <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu</a></span>
             <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta</a></span>
@@ -116,8 +146,8 @@
     </header>
     <div class="container">
         <div class="leaderboards">
-            <h2>Leaderboards</h2>
-            <div class="badges">
+            <h2 style="text-align: center;">Leaderboards</h2>
+            <div class="badges" style="text-align: center;">
                 <!-- Badges here --><img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test" alt="PWC Badge">
                 <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147" alt="PWC Badge">
                 <img src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount" alt="PWC Badge">
@@ -125,12 +155,19 @@
             </div>
         </div>
         <div class="abstract">
-            <h2>Abstract</h2>
+            <h2 style="text-align: center;">Abstract</h2>
             <p>Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a new, more practical approach enabling simultaneous counting of multiple object categories using an open vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging point prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions and heralding a new era in object counting technology.</p>
-            <img src="https://live.staticflickr.com/65535/53591545555_273da9ad0c_h.jpg" alt="OmniCount Pipeline" class="full-width">
+            <div style="text-align: center;">
+            <b><a href="https://arxiv.org/abs/2403.05435" class="lnk">arXiv</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;<b><a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">PDF</a></b>
+            </div>
+        </div>
+        <div class="method">
+            <h2 style="text-align: center;">Method</h2>
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline_v2.png" alt="OmniCount Pipeline" class="full-width">
+            <p style="text-align: center;">OmniCount Pipeline: Our method starts by processing the input image and their target object classes, using Semantic Estimation and Geometric Estimation modules to generate class-specific masks and depth maps. These initial priors are refined with a Semantic Refinement module for accuracy, creating precise binary masks of target objects. The refined masks help in obtaining RGB patches for each class and also extracting reference points to reduce overcounting. SAM uses these RGB patches and reference points to create instance-level masks, yielding precise object counts. &#x2744; represents frozen pre-trained models.</p>
         </div>
         <div class="viz">
-            <h2>Visualizations</h2>
+            <h2 style="text-align: center;">Results</h2>
             <div class="comparison-blocks">
                 <div class="image-block">
                     <div class="image-compare-container">
@@ -152,6 +189,63 @@
                     </div>
                     <p class="image-caption">Crow: 9, Pigeons: 10</p>
                 </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/house/343.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/house/343_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Strawberries: 16, Kiwis: 14</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/pets/pets1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/pets/pets1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Dog: 1, Cats: 1, Rabbit: 1, Bird: 1, Guineapig: 1, Boar: 1</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/urban1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/urban1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Cars: 7</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/sat/sat1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/sat/sat1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Baseball field: 4</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/wild/wild2.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/wild/wild2_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Elephant: 1, Buffaloes: 3</p>
+                </div>
+
+                
             </div>
         </div>
     </div>
