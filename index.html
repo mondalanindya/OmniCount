@@ -15,14 +15,7 @@
             background-color: #f0f2f5;
             color: #333;
         }
-        .content {
-            max-width: 1200px;
-            margin: auto;
-            padding: 20px;
-        }
-
-
-        .container {
+        .container, .content {
             max-width: 1200px;
             margin: auto;
             padding: 20px;
@@ -140,23 +133,29 @@
             height: auto; /* This is to maintain the aspect ratio of the image */
             margin: auto; /* This will center the image */
         }
+        .affiliations {
+            text-align: center;
+        }
+        .affiliations span {
+            margin-right: 10px;
+        }
+        .affiliations a {
+            color: black;
+        }
             </style>
 </head>
 <body>
     <header>
         <h1><img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount_icon.png" alt="OmniCount Teaser" class="icon-width"></h1>
         <div class="authors">
-            <span><a href="https://mondalanindya.github.io">Anindya Mondal*<sup>125</sup></a></span>
-            <span><a href="https://sauradip.github.io/">Sauradip Nag*<sup>145</sup></a></span>
-            <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu<sup>125</sup></a></span>
-            <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta<sup>1235</sup></a></span>
+            <span><a href="https://mondalanindya.github.io">Anindya Mondal*<sup>1</sup></a></span>
+            <span><a href="https://sauradip.github.io/">Sauradip Nag*<sup>2</sup></a></span>
+            <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu<sup>1</sup></a></span>
+            <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta<sup>1</sup></a></span>
         </div>
-        <div class="affiliations" style="text-align: center;">
-            <span style="margin-right: 10px;"><a href="https://www.surrey.ac.uk/" style="color: black;"><sup>1</sup>CVSSP,  </a></span>
-            <span style="margin-right: 10px;"><a href="https://www.surrey.ac.uk/" style="color: black;"><sup>2</sup>Surrey Institute for People-centred AI,  </a></span>
-            <span style="margin-right: 10px;"><a href="https://www.surrey.ac.uk/" style="color: black;"><sup>3</sup>School of Veterinary Medicine,  </a></span>
-            <span style="margin-right: 10px;"><a href="https://www.surrey.ac.uk/" style="color: black;"><sup>4</sup>iFlyTek-Surrey Joint Research Center on AI </a></span>
-            <span style="margin-right: 10px;"><a href="https://www.surrey.ac.uk/" style="color: black;"><sup>5</sup>University of Surrey </a></span>
+        <div class="affiliations">
+            <span><a href="https://www.surrey.ac.uk/"><sup>1</sup>University of Surrey</a></span>
+            <span><a href="https://www.sfu.ca/"><sup>2</sup>Simon Fraser University</a></span>
         </div>
     </header>
 
@@ -171,15 +170,18 @@
 
         <div class="abstract">
             <h2 style="text-align: center;">Abstract</h2>
-            <p>Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a new, more practical approach enabling simultaneous counting of multiple object categories using an open vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging point prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions and heralding a new era in object counting technology.</p>
+            <p>Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a more practical approach enabling simultaneous counting of multiple object categories using an open-vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights (priors) from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging varied interactive prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions.</p>
             <div style="text-align: center;">
             <b><a href="https://arxiv.org/abs/2403.05435" class="lnk">arXiv</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;<b><a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">PDF</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;<b><a href="https://github.com/mondalanindya/OmniCount/tree/main/code" class="lnk">Code</a></b>
             </div>
         </div>
         <div class="method">
             <h2 style="text-align: center;">Method</h2>
-            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline_v2.png" alt="OmniCount Pipeline" class="full-width">
+            <img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/pipeline.png" alt="OmniCount Pipeline" class="full-width">
             <p style="text-align: center;">OmniCount Pipeline: Our method starts by processing the input image and their target object classes, using Semantic Estimation and Geometric Estimation modules to generate class-specific masks and depth maps. These initial priors are refined with a Semantic Refinement module for accuracy, creating precise binary masks of target objects. The refined masks help in obtaining RGB patches for each class and also extracting reference points to reduce overcounting. SAM uses these RGB patches and reference points to create instance-level masks, yielding precise object counts. &#x2744; represents frozen pre-trained models.</p>
+            <h2 style="text-align: center;">Refinement</h2>
+            <img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/refinement.png" alt="OmniCount Pipeline" class="full-width">
+            <p style="text-align: center;">Reference Point Selection: SAM’s segmentation accuracy is enhanced by refining reference point selection. Panel (A) shows how integrating semantic priors, identifying local maxima, and applying Gaussian refinement improve reference point accuracy, focusing them on foreground objects for better segmentation and counting. Panel (B) demonstrates the benefits of incorporating semantic and geometric priors, where depth-based recovery and precise reference points help SAM recover distant or occluded objects, reducing over-segmentation issues found in the default "everything mode"</p>
         </div>
         <div class="viz">
             <h2 style="text-align: center;">Results</h2>
@@ -271,6 +273,50 @@
                     <p class="image-caption">Elephant: 1, Buffaloes: 3</p>
                 </div>
 
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/london.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/london_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Person: 45</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/pulses.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/pulses_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Beans: 33, Green peas: 169</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/penguin.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/penguin_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Penguins: 197</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/fruits/fruits.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/fruits/fruits_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Apples: 79, Peaches: 10</p>
+                </div>
+
                 
             </div>
         </div>
@@ -308,22 +354,29 @@
                 slider.addEventListener('mousedown', () => {
                     isDown = true;
                     slider.classList.add('active');
-                    
-                    document.addEventListener('mouseup', () => {
-                        isDown = false;
-                        slider.classList.remove('active');
-                    }, { once: true });
                 });
 
-                document.addEventListener('mousemove', (e) => {
+                document.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                });
+
+                const debounce = (func, wait) => {
+                    let timeout;
+                    return (...args) => {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => func.apply(this, args), wait);
+                    };
+                };
+
+                document.addEventListener('mousemove', debounce((e) => {
                     if (!isDown) return;
                     const rect = container.getBoundingClientRect();
                     const x = e.pageX - rect.left;
                     const walk = Math.max(0, Math.min(x, rect.width));
                     slider.style.left = `${walk}px`;
-                    // overlay.style.clipPath = `inset
                     overlay.style.clipPath = `inset(0 ${rect.width - walk}px 0 0)`;
-                });
+                }, 10));
             });
         });
     </script>
