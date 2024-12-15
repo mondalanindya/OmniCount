@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="""en"></html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="""UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OmniCount</title>
       <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Google Sans', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #f0f2f5;
+            background-color: #ffffff;
             color: #333;
         }
         .container, .content {
@@ -24,7 +25,7 @@
             text-align: center;
             padding: 20px 0;
             background-color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
         }
         .authors {
             display: flex;
@@ -48,7 +49,7 @@
             background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(130, 172, 240, 0.591);
             margin-bottom: 20px;
         }
         .badges img {
@@ -111,7 +112,7 @@
             margin-top: 5px;
         }
         pre {
-            background-color: #eee;
+            background-color: #007bff85;
             border: 1px solid #999;
             border-radius: 5px;
             padding: 10px;
@@ -154,51 +155,90 @@
         .accepted h2 a:hover {
             text-decoration: underline;
         }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .section {
+            width: 80%;
+            margin: 20px 0;
+        }
+        .main-container {
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0 0 0 2px #007bff, 0 0 0 4px #0056b3, 0 0 0 6px #007bff;
+        }
             </style>
 </head>
 <body>
+    <div class="main-container">
     <header>
-        <h1><img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount_icon.png" alt="OmniCount Teaser" class="icon-width"></h1>
+        <h1><b>OmniCount: Multi-label Object Counting with Semantic-Geometric Priors</b></h1>
         <div class="authors">
             <span><a href="https://mondalanindya.github.io">Anindya Mondal*<sup>1</sup></a></span>
             <span><a href="https://sauradip.github.io/">Sauradip Nag*<sup>2</sup></a></span>
             <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu<sup>1</sup></a></span>
             <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta<sup>1</sup></a></span>
         </div>
+        
         <div class="affiliations">
             <span><a href="https://www.surrey.ac.uk/"><sup>1</sup>University of Surrey</a></span>
             <span><a href="https://www.sfu.ca/"><sup>2</sup>Simon Fraser University</a></span>
         </div>
+        <div><img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/uni_icons.png" style="width: auto; height: auto;"></div>
+        <div class="columns is-centered"></div> 
         <div class="accepted">
             <h2><a href="https://aaai.org/Conferences/AAAI-25/" target="_blank">Accepted to AAAI 2025</a></h2>
+        </div>
+        <div style="text-align: center;">
+            <a href="https://arxiv.org/abs/2403.05435" class="lnk">
+                <i class="fas fa-file-alt" style="font-size: 24px;"></i>
+            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">
+                <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
+            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://github.com/mondalanindya/OmniCount/tree/main/code" class="lnk">
+                <i class="fab fa-github" style="font-size: 24px;"></i>
+            </a>
         </div>
     </header>
 
     <div class="container">
-        <div class="teaser">
-            <!-- <h2 style="text-align: center;">OmniCount: Multi-Label Object Counting with Open Vocabulary</h2> -->
+        <div class="section">
+            <h2 style="text-align: center;">Object Counting Paradigms</h2>
             <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount_teaser.png" alt="OmniCount Teaser" class="full-width">
-            <p style="text-align: center;">Object counting paradigms: (a) Typical single-label object counting models supports open-vocabulary counting but processes only a single category one time.
+            <p style="text-align: center;">(a) Typical single-label object counting models supports open-vocabulary counting but processes only a single category one time.
                 (b) Existing multi-label object counting models are training based (i.e, not open-vocabulary) approaches and also fail to count non-atomic objects, e.g. grapes.
                 (c) We advocate more efficient and convenient multi-label counting that is training-free, open-vocabulary and supports counting all the target categories in a single pass.</p>
         </div>    
 
-        <div class="abstract">
+        <div class="section">
             <h2 style="text-align: center;">Abstract</h2>
             <p>Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a more practical approach enabling simultaneous counting of multiple object categories using an open-vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights (priors) from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging varied interactive prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions.</p>
-            <div style="text-align: center;">
-            <b><a href="https://arxiv.org/abs/2403.05435" class="lnk">arXiv</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;<b><a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">PDF</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;<b><a href="https://github.com/mondalanindya/OmniCount/tree/main/code" class="lnk">Code</a></b>
-            </div>
+            <!-- <div style="text-align: center;">
+                <a href="https://arxiv.org/abs/2403.05435" class="lnk">
+                    <i class="fas fa-file-alt" style="font-size: 24px;"></i>
+                </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">
+                    <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
+                </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://github.com/mondalanindya/OmniCount/tree/main/code" class="lnk">
+                    <i class="fab fa-github" style="font-size: 24px;"></i>
+                </a>
+            </div> -->
         </div>
-        <div class="method">
+        <div class="section">
             <h2 style="text-align: center;">Method</h2>
-            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline.png" alt="OmniCount Pipeline" class="full-width">
+            <img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/pipeline.png" alt="OmniCount Pipeline" class="full-width">
             <p style="text-align: center;">OmniCount Pipeline: Our method starts by processing the input image and their target object classes, using Semantic Estimation and Geometric Estimation modules to generate class-specific masks and depth maps. These initial priors are refined with a Semantic Refinement module for accuracy, creating precise binary masks of target objects. The refined masks help in obtaining RGB patches for each class and also extracting reference points to reduce overcounting. SAM uses these RGB patches and reference points to create instance-level masks, yielding precise object counts. &#x2744; represents frozen pre-trained models.</p>
+        </div>
+        <div class="section">
             <h2 style="text-align: center;">Refinement</h2>
-            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/refinement.png" alt="OmniCount Pipeline" class="full-width">
+            <img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/refinement.png" alt="OmniCount Pipeline" class="full-width">
             <p style="text-align: center;">Reference Point Selection: SAM’s segmentation accuracy is enhanced by refining reference point selection. Panel (A) shows how integrating semantic priors, identifying local maxima, and applying Gaussian refinement improve reference point accuracy, focusing them on foreground objects for better segmentation and counting. Panel (B) demonstrates the benefits of incorporating semantic and geometric priors, where depth-based recovery and precise reference points help SAM recover distant or occluded objects, reducing over-segmentation issues found in the default "everything mode"</p>
         </div>
-        <div class="viz">
+        <div class="section">
             <h2 style="text-align: center;">Results</h2>
             <div class="comparison-blocks">
                 <div class="image-block">
@@ -335,30 +375,33 @@
                 
             </div>
         </div>
-        <div class="benchmark">
+        <div class="section">
             <h2 style="text-align: center;">Omnicount-191 Benchmark</h2>
             <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount191.png" alt="OmniCount-191 Benchmark" class="full-width">
             <p>OmniCount-191: A comprehensive benchmark for multi-label object counting. The dataset consists of 30,230 images with multi-label object counts, including points, bounding boxes, and VQA annotations. For more details, please visit our <a href="https://huggingface.co/datasets/anindyamondal/Omnicount-191" class="lnk">Hugging Face page</a>.</p>
         </div>
-    </div>
-    <div class="bibtex">
-        <h2 style="text-align: center;">BibTeX</h2>
-        <center><pre><code>@article{mondal2024omnicount,
-            title={OmniCount: Multi-label Object Counting with Semantic-Geometric Priors},
-            author={Mondal, Anindya and Nag, Sauradip and Zhu, Xiatian and Dutta, Anjan},
-            journal={arXiv preprint arXiv:2403.05435},
-            year={2024}
-          }
-        </code></pre></center>
+        <div class="section">
+            <h2 style="text-align: center;">BibTeX</h2>
+            <center><pre><code>@article{mondal2024omnicount,
+                title={OmniCount: Multi-label Object Counting with Semantic-Geometric Priors},
+                author={Mondal, Anindya and Nag, Sauradip and Zhu, Xiatian and Dutta, Anjan},
+                journal={arXiv preprint arXiv:2403.05435},
+                year={2024}
+            }
+            </code></pre></center>
         </div>
 
-    <div class="license">
-        <h2 style="text-align: center;">License</h2>
-        <p>Object counting has legitimate commercial applications in urban planning, event logistics, and consumer behavior analysis. However, said technology concurrently facilitates human surveillance capabilities, which unscrupulous actors may intentionally or unintentionally misappropriate for nefarious purposes. As such, we must exercise reasoned skepticism towards any downstream deployment of our research that enables the monitoring of individuals without proper legal safeguards and ethical constraints. Therefore, in an effort to mitigate foreseeable misuse and uphold principles of privacy and civil liberties, we will hereby release all proprietary source code pursuant to the Open RAIL-S License, which expressly prohibits exploitative applications through robust contractual obligations and liabilities.</p>
-    </div>
-        <!-- <footer style="background-color: #f8f9fa; padding: 20px; font-size: 16px; line-height: 1.6; color: #333;">
-            
-        </footer> -->
+        <div class="section">
+            <h2 style="text-align: center;">License</h2>
+            <p>Object counting has legitimate commercial applications in urban planning, event logistics, and consumer behavior analysis. However, said technology concurrently facilitates human surveillance capabilities, which unscrupulous actors may intentionally or unintentionally misappropriate for nefarious purposes. As such, we must exercise reasoned skepticism towards any downstream deployment of our research that enables the monitoring of individuals without proper legal safeguards and ethical constraints. Therefore, in an effort to mitigate foreseeable misuse and uphold principles of privacy and civil liberties, we will hereby release all proprietary source code pursuant to the Open RAIL-S License, which expressly prohibits exploitative applications through robust contractual obligations and liabilities.</p>
+        </div>
+
+        <div class="section">
+            <!-- <h2 style="text-align: center;">Acknowledgement</h2> -->
+            <p style="text-align: center;">Inspired by <a href="https://nerfies.github.io/">Nerfies</a>. Thanks <a href="https://www.linkedin.com/in/manisha-saha-373052341/">Manisha</a> for your exceptional UI/UX design insights.</p>
+        </div>
+    </div> <!-- Closing the main container div -->
+    </div> <!-- Closing the outer container div -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.image-compare-container').forEach(container => {
@@ -395,8 +438,9 @@
             });
         });
     </script>
-    <center class="noclick">  
+    <center class="noclick">
     <a href='https://clustrmaps.com/site/1bt1g'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=VUWsmjs9vT_QHmhAr6OuY_eMPD1CJyQ5FGORa626Ips&co=37a1ec&ct=ffffff'width="0.003" height="0.002"/></a>
     </center>
+</div>
 </body>
 </html>
