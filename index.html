@@ -192,10 +192,10 @@
         </div>
         <div class="method">
             <h2 style="text-align: center;">Method</h2>
-            <img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/pipeline.png" alt="OmniCount Pipeline" class="full-width">
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline.png" alt="OmniCount Pipeline" class="full-width">
             <p style="text-align: center;">OmniCount Pipeline: Our method starts by processing the input image and their target object classes, using Semantic Estimation and Geometric Estimation modules to generate class-specific masks and depth maps. These initial priors are refined with a Semantic Refinement module for accuracy, creating precise binary masks of target objects. The refined masks help in obtaining RGB patches for each class and also extracting reference points to reduce overcounting. SAM uses these RGB patches and reference points to create instance-level masks, yielding precise object counts. &#x2744; represents frozen pre-trained models.</p>
             <h2 style="text-align: center;">Refinement</h2>
-            <img src="/Volumes/Seagate/Mac/OmniCount-main/assets/figs/refinement.png" alt="OmniCount Pipeline" class="full-width">
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/refinement.png" alt="OmniCount Pipeline" class="full-width">
             <p style="text-align: center;">Reference Point Selection: SAM’s segmentation accuracy is enhanced by refining reference point selection. Panel (A) shows how integrating semantic priors, identifying local maxima, and applying Gaussian refinement improve reference point accuracy, focusing them on foreground objects for better segmentation and counting. Panel (B) demonstrates the benefits of incorporating semantic and geometric priors, where depth-based recovery and precise reference points help SAM recover distant or occluded objects, reducing over-segmentation issues found in the default "everything mode"</p>
         </div>
         <div class="viz">
