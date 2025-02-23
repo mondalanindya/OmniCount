@@ -5,7 +5,6 @@
 ## Authors
 [Anindya Mondal*](https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en), [Sauradip Nag*](https://sauradip.github.io/), [Xiatian Zhu](https://surrey-uplab.github.io/), [Anjan Dutta](https://sites.google.com/site/2adutta/).
 
-The code and the Omnicount-191 dataset will be released shortly. Please stay tuned! 
 
 [[ArXiv]](https://arxiv.org/abs/2403.05435)
 # Abstract
