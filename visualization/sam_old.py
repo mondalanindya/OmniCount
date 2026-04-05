@@ -24,9 +24,6 @@
 #     min_mask_region_area=25,
 # )
 
-# base_patches_path = '/vol/research/am04485/Codes/voting/images/rgb_patches'
-# output_sam_patches_path = '/vol/research/am04485/Codes/voting/images/sam_patches_new'
-
 # # Ensure output directory exists
 # os.makedirs(output_sam_patches_path, exist_ok=True)
 
@@ -71,16 +68,16 @@
 
 #################################################################################################################
 
-# import os
-# import cv2
-# import numpy as np
-# from PIL import Image
-# import torch
-# from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
+import os
+import cv2
+import numpy as np
+from PIL import Image
+import torch
+from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
+
+from paths import OUTPUTS_ROOT
 
 # # Define paths
-# base_patches_path = '/vol/research/am04485/Codes/voting/images/rgb_patches'
-# output_sam_patches_path = '/vol/research/am04485/Codes/voting/images/sam_patches_new'
 
 # # Ensure output directory exists
 # os.makedirs(output_sam_patches_path, exist_ok=True)
@@ -139,9 +136,8 @@ import torch
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator, SamPredictor
 
 # Define paths
-base_patches_path = '/home/amondal/Codes/omnicount/outputs_sota/CARPK_test_split/patches'
-base_patches_path = '/home/amondal/Codes/omnicount/outputs_sota/CARPK_test_split/patches'
-output_sam_patches_path = '/home/amondal/Codes/omnicount/outputs_sota/CARPK_test_split/sam_patches'
+base_patches_path = str(OUTPUTS_ROOT / 'CARPK_test_split' / 'patches')
+output_sam_patches_path = str(OUTPUTS_ROOT / 'CARPK_test_split' / 'sam_patches')
 
 # Ensure output directory exists
 os.makedirs(output_sam_patches_path, exist_ok=True)

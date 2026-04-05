@@ -149,7 +149,6 @@ mg = SamAutomaticMaskGenerator1(sam)
 masks = mg.generate(np.asarray(pil_img))
 print(len(masks))
 # Create output directory
-# output_path = "/home/amondal/Codes/voting/single_outpus"
 # os.makedirs(output_path, exist_ok=True)
 
 # # Overlay masks and save

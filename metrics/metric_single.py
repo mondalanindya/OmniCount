@@ -35,14 +35,17 @@
 
 
 import json
-import numpy as np
 import math
 
+import numpy as np
+
+from paths import OUTPUTS_ROOT, REPO_ROOT
+
 # Load the ground truth and predictions from JSON files
-with open('/home/amondal/Codes/omnicount/outputs_sota/FSC_test_split_single/fsc_data_single_gt.json', 'r') as f:
+with open(OUTPUTS_ROOT / 'FSC_test_split_single' / 'fsc_data_single_gt.json', 'r') as f:
     ground_truth = json.load(f)
 
-with open('/home/amondal/Codes/vqa/fsc_single/gt/vilt.json', 'r') as f:
+with open(REPO_ROOT.parent / 'vqa' / 'fsc_single' / 'gt' / 'vilt.json', 'r') as f:
     predictions = json.load(f)
 
 # Initialize variables to store the errors and counts

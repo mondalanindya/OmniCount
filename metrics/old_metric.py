@@ -2,11 +2,7 @@
 # import numpy as np
 # import json
 
-# with open('/home/amondal/Codes/omnicount/outputs_sota/FSC_test_split_multi/fsc_data_gt.json') as f:
-#     gt_count = json.load(f)
 
-# with open("/home/amondal/Codes/omnicount/outputs_sota/FSC_test_split_multi/fsc_data_pred.json") as f:
-#     pred_count = json.load(f)
 
 # correct_class = 0 
 # correct_count = 0
@@ -101,14 +97,15 @@
 
 ###################################CODE v2############################################
 
-# import numpy as np
 import json
 
+from paths import OUTPUTS_ROOT, REPO_ROOT
+
 # Load ground truth and predictions
-with open('/home/amondal/Codes/omnicount/outputs_sota/FSC_test_split_multi/fsc_data_gt.json') as f:
+with open(OUTPUTS_ROOT / 'FSC_test_split_multi' / 'fsc_data_gt.json') as f:
     gt_count = json.load(f)
 
-with open("/home/amondal/Codes/omnicount/outputs_clipseg/FSC_test_split_multi/fsc_multi_clipseg.json") as f:
+with open(REPO_ROOT / 'outputs_clipseg' / 'FSC_test_split_multi' / 'fsc_multi_clipseg.json') as f:
     pred_count = json.load(f)
 
 # Initialize counters

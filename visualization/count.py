@@ -1,11 +1,11 @@
-# import os
-# from PIL import Image
-# import torch
-# import torch.nn as nn
-# from transformers import CLIPProcessor, CLIPModel
-# import clip
-# from torchvision import transforms
-# import numpy as np
+import os
+import glob
+import json
+
+from PIL import Image
+import numpy as np
+
+from paths import OUTPUTS_ROOT
 
 # def get_classes_in_directory(directory):
 #     return [d for d in os.listdir(directory) if os.path.isdir(os.path.join(directory, d))]
@@ -100,13 +100,9 @@
 #             for class_name, count in class_counts.items():
 #                 print(f"For {img_folder}.jpg, the count of {class_name} = {count}")
 
-# process_images("/vol/research/am04485/Codes/voting/images/sam_patches", "/vol/research/am04485/Codes/voting/images/count_patches", threshold=0.95)
-# import os
-# from PIL import Image
-# import torch
-# from transformers import CLIPProcessor, CLIPModel
+from transformers import CLIPProcessor, CLIPModel
 
-# # Define all classes
+# Define all classes
 # all_classes = {"person", "sea shells", "balloons", "peppers", "buns", "strawberries", "bowls", "cups", "plates", "grapes", "birds", "bicycle", "eggs", "books", "sheep"}
 
 # def process_images(base_directory, save_directory, threshold=0.4):
@@ -147,7 +143,6 @@
 #             for class_name, count in class_counts.items():
 #                 print(f"For {img_folder}.jpg, the count of {class_name} = {count}")
 
-# process_images("/vol/research/am04485/Codes/voting/images/original/sam_patches_final", "/vol/research/am04485/Codes/voting/images/original/count_patches")
 
 ##############################################################################################################
 
@@ -203,7 +198,6 @@
 #             for class_name, count in class_counts.items():
 #                 print(f"For {img_folder}.jpg, the count of {class_name} = {count}")
 
-# process_images("/vol/research/am04485/Codes/voting/images/sam_patches", "/vol/research/am04485/Codes/voting/images/count_patches")
 
 
 
@@ -252,13 +246,11 @@
 #             image_counts[f"{img_folder}.jpg"] = class_counts
 
 #     # Write to JSON file
-#     with open('/vol/research/am04485/Codes/voting/images/urban_scene_test/urban_scene_pred.json', 'w') as json_file:
 #         json.dump(image_counts, json_file, indent=4)
 
 # # Define all classes
 # all_classes = {"bike", "biker", "bus", "car", "motorbike", "pedestrian", "trafficlight", "truck"}
 
-# process_images("/vol/research/am04485/Codes/voting/images/urban_scene_test/sam_patches/", "/vol/research/am04485/Codes/voting/images/urban_scene_test/count_patches/")
 
 
 ##save the class counts from sam_patches to json file
@@ -285,7 +277,6 @@
 #     with open(json_file, 'w') as json_file:
 #         json.dump(image_counts, json_file, indent=4)
 
-# save_json("/vol/research/am04485/Codes/voting/images/urban_scene_test/sam_patches/", "/vol/research/am04485/Codes/voting/images/urban_scene_test/urban_scene_pred_no.json")
 
 
 
@@ -355,7 +346,6 @@
 
 #             image_counts[f"{img_folder}.png"] = class_counts
 
-#     with open('/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/carpk_pred_count.json', 'w') as json_file:
 #         json.dump(image_counts, json_file, indent=4)
 
 # # Define all classes
@@ -363,7 +353,6 @@
 # #all_classes = {"background", "flower pots", "cashew nuts", "biscuits", "rice bags", "crab cakes", "peppers", "chairs", "skis", "shirts", "crayons", "milk cartons", "finger foods", "watches", "kidney beans", "jeans", "people", "marbles", "deers", "boxes", "sauce bottles", "potatoes", "cupcake tray", "green peas", "tree logs", "plates", "strawberries", "books", "suprmarket shelf", "potato chips", "sunglasses", "caps", "kiwis", "keyboard keys", "shoes", "cups", "bowls", "spoon", "flowers", "apples"}
 # #all classes should only contain the folder names under each image in the sam_patches folder
 
-# process_images("/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/sam_patches", "/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/count_patches")
 
 
 # import os
@@ -433,7 +422,6 @@
 
 #             image_counts[f"{img_folder}.jpg"] = class_counts
 
-#     with open('/vol/research/am04485/Codes/voting/outputs_sota/FSC_test_split_single/fsc_data_single_pred.json', 'w') as json_file:
 #         json.dump(image_counts, json_file, indent=4)
 
 
@@ -441,7 +429,6 @@
 
 
 
-# process_images("/vol/research/am04485/Codes/voting/outputs_sota/FSC_test_split_single/sam_patches", "/vol/research/am04485/Codes/voting/outputs_sota/FSC_test_split_single/count_patches")
 
 
 
@@ -457,7 +444,6 @@
 # from PIL import Image
 # import numpy as np
 
-# base_dir = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_single/sam_patches_box_v2"
 # result = {}
 
 # # Iterate over all directories in the base directory
@@ -487,7 +473,6 @@
 #                 result[f"{dir_name}.jpg"] = {class_name: image_count}
 
 # # Write to JSON file
-# with open('/home/amondal/Codes/voting/outputs_sota/FSC_test_split_single/fsc_pred_patches.json', 'w') as f:
 #     json.dump(result, f, indent=4)
 
 
@@ -504,7 +489,6 @@
 # from PIL import Image
 # import numpy as np
 
-# base_dir = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_multisingle/sam_patches"
 # result = {}
 
 # # Iterate over all directories in the base directory
@@ -537,7 +521,6 @@
 #         result[f"{dir_name}.jpg"] = image_dict
 
 # # Write to JSON file
-# with open('/home/amondal/Codes/voting/outputs_sota/FSC_test_split_multisingle/fsc_data_pred_multisingle.json', 'w') as f:
 #     json.dump(result, f, indent=4)
 
 import os
@@ -546,7 +529,7 @@ import json
 from PIL import Image
 import numpy as np
 
-base_dir = "/home/amondal/Codes/omnicount/outputs_sota/animals/sam_patches"
+base_dir = str(OUTPUTS_ROOT / 'animals' / 'sam_patches')
 result = {}
 
 # Iterate over all directories in the base directory
@@ -592,7 +575,7 @@ for dir_name in os.listdir(base_dir):
             result[f"{dir_name}.jpg"] = image_dict
 
 # Write to JSON file
-output_file = '/home/amondal/Codes/omnicount/outputs_sota/animals/animal_pred_1.json'
+output_file = OUTPUTS_ROOT / 'animals' / 'animal_pred_1.json'
 with open(output_file, 'w') as f:
     json.dump(result, f, indent=4)
 

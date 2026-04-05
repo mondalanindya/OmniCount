@@ -4,11 +4,6 @@
 # from PIL import Image
 # import random
 
-# base_rgb_path = '/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/images'  # Path to RGB images
-# base_mask_path = '/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/binary_masks'
-# base_depth_path = '/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/depth/depth_bw'
-# output_patches_path = '/home/amondal/Codes/voting/outputs_sota/CARPK_test_split/patches'
-
 # # Ensure output directory exists
 # os.makedirs(output_patches_path, exist_ok=True)
 

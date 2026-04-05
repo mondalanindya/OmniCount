@@ -159,7 +159,6 @@
 #         masks = mask_generator.generate(np.asarray(pil_img))
 
 #     # Create output directory
-#     output_path = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_single/sam_mod_patches/"+cls_id+"/"+target_texts
 
     
 
@@ -185,10 +184,6 @@
 
 
 
-
-# patch_path = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_single/patches" 
-# mask_path = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_single/refined_bin_masks" 
-# output_path = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_single/sam_mod_patches/"
 
 # patches = os.listdir(patch_path)
 # masks = os.listdir(mask_path)

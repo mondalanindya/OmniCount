@@ -1,5 +1,7 @@
 import json
 
+from paths import OUTPUTS_ROOT
+
 def get_unique_keys(json_file):
     with open(json_file, 'r') as f:
         data = json.load(f)
@@ -8,6 +10,8 @@ def get_unique_keys(json_file):
 
     return unique_keys
 
-print(len(get_unique_keys('/home/amondal/Codes/omnicount/outputs_sota/animals/animal_pred_15.json')))
+json_file_path = OUTPUTS_ROOT / "animals" / "animal_pred_15.json"
 
-print(get_unique_keys('/home/amondal/Codes/omnicount/outputs_sota/animals/animal_pred_15.json'))
+print(len(get_unique_keys(json_file_path)))
+
+print(get_unique_keys(json_file_path))

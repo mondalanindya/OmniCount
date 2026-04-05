@@ -1,6 +1,8 @@
 import json
 import numpy as np
 
+from paths import OUTPUTS_ROOT
+
 
 def load_json_file(file_path):
     with open(file_path, 'r') as file:
@@ -74,10 +76,8 @@ def calculate_metrics(ground_truth, predictions):
 
 
 
-ground_truth_file_path = "/home/amondal/Codes/omnicount/outputs_sota/animals/animal_gt.json"
-# prediction_file_path = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_multisingle/fsc_data_pred_multisingle.json"
-# prediction_file_path = "/home/amondal/Codes/voting/baselines/tfoc_original/fsc_data_multiple_tfoc.json"
-prediction_file_path = "/home/amondal/Codes/omnicount/outputs_sota/animals/animal_pred_1.json"
+ground_truth_file_path = OUTPUTS_ROOT / "animals" / "animal_gt.json"
+prediction_file_path = OUTPUTS_ROOT / "animals" / "animal_pred_1.json"
 
 # Correctly load the JSON files using the load_json_file function
 ground_truth = load_json_file(ground_truth_file_path)

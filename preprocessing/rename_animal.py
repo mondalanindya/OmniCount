@@ -1,8 +1,9 @@
 import os
 import re
 
-# Directory containing the images
-directory = "/home/amondal/Codes/omnicount/outputs_sota/animals/images"
+from paths import OUTPUTS_ROOT
+
+directory = str(OUTPUTS_ROOT / "animals" / "images")
 
 # Pattern to extract the number from the filename
 pattern = r"\d+"

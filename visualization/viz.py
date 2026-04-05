@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 import os
 
+from paths import OUTPUTS_ROOT
+
 def generate_unique_colors(n):
     # Generate n unique colors
     np.random.seed(42)  # Ensure reproducible colors
@@ -45,9 +47,9 @@ def overlay_masks_dynamic_colors(image_path, masks_dir):
 
     return original_image
 
-image_path = '/home/amondal/Codes/omnicount/outputs_sota/animals/images/5.jpg'
-masks_dir = '/home/amondal/Codes/omnicount/outputs_sota/animals/sam_patches/5'
-result_image_path = '/home/amondal/Codes/omnicount/outputs_sota/animals/vizs/5_mask.jpg'
+image_path = str(OUTPUTS_ROOT / 'animals' / 'images' / '5.jpg')
+masks_dir = str(OUTPUTS_ROOT / 'animals' / 'sam_patches' / '5')
+result_image_path = str(OUTPUTS_ROOT / 'animals' / 'vizs' / '5_mask.jpg')
 
 resulting_image = overlay_masks_dynamic_colors(image_path, masks_dir)
 cv2.imwrite(result_image_path, resulting_image)

@@ -107,11 +107,6 @@ def refine_count(cls_id, patch_path, mask_path, target_texts):
     print("Creating output directory at: ", output_path)
     os.makedirs(output_path, exist_ok=True)
 
-    # # Define output path
-    # output_base_path = "/home/amondal/Codes/voting/outputs_sota/FSC_test_split_multi/sam_patches"
-    # output_path = os.path.join(output_base_path, cls_id, target_texts)
-    # os.makedirs(output_path, exist_ok=True)
-
     # Overlay masks and save
     def overlay_and_save(image, mask, output_path, filename):
         overlayed_image = np.where(mask[..., None], image, np.zeros_like(image))

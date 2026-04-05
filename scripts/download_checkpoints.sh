@@ -34,15 +34,15 @@ SAN_VIT_L="$OUTPUT_DIR/san_vit_large_14.pth"
 
 if [ ! -f "$SAN_VIT_B" ]; then
     echo "Downloading SAN ViT-B/16 checkpoint..."
-    # Replace with actual URL if available
-    echo "Note: Please download SAN ViT-B/16 checkpoint manually and place it at: $SAN_VIT_B"
+    echo "Note: SAN ViT-B/16 checkpoint is not auto-downloaded by this script."
+    echo "      Please download it manually and place it at: $SAN_VIT_B"
     echo "      Refer to https://github.com/MendelXu/SAN for checkpoint download instructions."
 fi
 
 if [ ! -f "$SAN_VIT_L" ]; then
     echo "Downloading SAN ViT-L/14 checkpoint..."
-    # Replace with actual URL if available
-    echo "Note: Please download SAN ViT-L/14 checkpoint manually and place it at: $SAN_VIT_L"
+    echo "Note: SAN ViT-L/14 checkpoint is not auto-downloaded by this script."
+    echo "      Please download it manually and place it at: $SAN_VIT_L"
     echo "      Refer to https://github.com/MendelXu/SAN for checkpoint download instructions."
 fi
 

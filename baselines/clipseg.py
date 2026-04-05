@@ -67,7 +67,6 @@
 #                 image_clusters[filename][cls] = optimal_clusters
 
 # # Save the results to a JSON file
-# with open('/vol/research/am04485/Codes/voting/outputs_clipseg/FSC_test_split_multi/fsc_multi_clipseg.json', 'w') as json_file:
 #     json.dump(image_clusters, json_file, indent=4)
 
 
