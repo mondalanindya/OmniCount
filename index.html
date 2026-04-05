@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="""en"></html>
+<head>
+    <meta charset="""UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniCount</title>
+      <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Google Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #333;
+        }
+        .container, .content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+        .authors {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: #ffffff;
+            padding-bottom: 20px;
+        }
+
+        .authors a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .authors a:hover {
+            text-decoration: underline;
+        }
+        .teaser, .leaderboards, .abstract, .viz , .method, .benchmark, .bibtex, .license {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(130, 172, 240, 0.591);
+            margin-bottom: 20px;
+        }
+        .badges img {
+            margin-right: 5px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        /* a:hover {
+            text-decoration: underline;
+        } */
+        img.full-width {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .comparison-blocks {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        .image-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 250px;
+        }
+        .image-compare-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .image-compare-container img, .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .overlay {
+            clip-path: inset(0 50% 0 0);
+        }
+        .slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ffffff;
+            cursor: ew-resize;
+            left: 50%;
+        }
+        .image-caption {
+            text-align: center;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        pre {
+            background-color: #007bff85;
+            border: 1px solid #999;
+            border-radius: 5px;
+            padding: 10px;
+            white-space: pre-wrap;
+            width: 80%;
+            text-align: left;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .icon-width {
+            display: block;
+            width: 10%; /* Adjust this value to resize the image */
+            height: auto; /* This is to maintain the aspect ratio of the image */
+            margin: auto; /* This will center the image */
+        }
+        .affiliations {
+            text-align: center;
+        }
+        .affiliations span {
+            margin-right: 10px;
+        }
+        .affiliations a {
+            color: black;
+        }
+        .accepted h2 {
+            color: #007bff;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+        .accepted h2 a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .accepted h2 a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .section {
+            width: 80%;
+            margin: 5px 0;
+        }
+        .main-container {
+            padding: 0px;
+            margin: 20px;
+            box-shadow: 0 0 0 2px #007bff, 0 0 0 4px #0056b3, 0 0 0 6px #007bff;
+        }
+            </style>
+</head>
+<body>
+    <div class="main-container">
+    <header>
+        <h1><b>OmniCount: Multi-label Object Counting<br>with Semantic-Geometric Priors</b></h1>
+        <div class="authors">
+            <span><a href="https://mondalanindya.github.io">Anindya Mondal*<sup>1</sup></a></span>
+            <span><a href="https://sauradip.github.io/">Sauradip Nag*<sup>2</sup></a></span>
+            <span><a href="https://surrey-uplab.github.io/">Xiatian Zhu<sup>1</sup></a></span>
+            <span><a href="https://sites.google.com/site/2adutta/">Anjan Dutta<sup>1</sup></a></span>
+        </div>
+        
+        <div class="affiliations">
+            <span><a href="https://www.surrey.ac.uk/"><sup>1</sup>University of Surrey</a></span>
+            <span><a href="https://www.sfu.ca/"><sup>2</sup>Simon Fraser University</a></span>
+        </div>
+        <div><img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/uni_icons.png" style="width: 350pt; height: auto;"></div>
+        <div class="columns is-centered"></div> 
+        <div class="accepted">
+            <h2><a href="https://aaai.org/Conferences/AAAI-25/" target="_blank">Accepted to AAAI 2025</a></h2>
+        </div>
+        <div style="text-align: center;">
+            <a href="https://github.com/mondalanindya/OmniCount/raw/refs/heads/main/OmniCount-191.zip" class="lnk">
+                <i class="fa fa-database" style="font-size: 22px;"></i>
+            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">
+                <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
+            </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="https://github.com/mondalanindya/OmniCount/" class="lnk">
+                <i class="fab fa-github" style="font-size: 24px;"></i>
+            </a>
+        </div>
+    </header> 
+    <div class="container">
+        <div class="section">
+            <p style="text-align: center; font-weight: bold;">TL;DR: OmniCount introduces a novel framework and the OmniCount-191 dataset for accurately counting multiple object categories in a single pass using pre-trained semantic and geometric estimation models.</p>
+        </div>
+        <div class="section">
+            <h2 style="text-align: center;">Object Counting Paradigms</h2>
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount_teaser.png" alt="OmniCount Teaser" class="full-width">
+            <p style="text-align: center;">(a) Typical single-label object counting models supports open-vocabulary counting but processes only a single category one time.
+                (b) Existing multi-label object counting models are training based (i.e, not open-vocabulary) approaches and also fail to count non-atomic objects, e.g. grapes.
+                (c) We advocate more efficient and convenient multi-label counting that is training-free, open-vocabulary and supports counting all the target categories in a single pass.</p>
+        </div>    
+
+        <div class="section">
+            <h2 style="text-align: center;">Abstract</h2>
+            <p style="text-align: center;">Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a more practical approach enabling simultaneous counting of multiple object categories using an open-vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights (priors) from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging varied interactive prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions.</p>
+            <!-- <div style="text-align: center;">
+                <a href="https://arxiv.org/abs/2403.05435" class="lnk">
+                    <i class="fas fa-file-alt" style="font-size: 24px;"></i>
+                </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://arxiv.org/pdf/2403.05435.pdf" class="lnk">
+                    <i class="fas fa-file-pdf" style="font-size: 24px;"></i>
+                </a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                <a href="https://github.com/mondalanindya/OmniCount/tree/main/code" class="lnk">
+                    <i class="fab fa-github" style="font-size: 24px;"></i>
+                </a>
+            </div> -->
+        </div>
+
+        <div class="section">
+            <h2 style="text-align: center;">Video</h2>
+            <div style="text-align: center;">
+                <iframe width="700" height="315" src="https://www.youtube.com/embed/Qms6ljkc6_k?si=-UN5OuriC1rZZG6c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 style="text-align: center;">OmniCount: Model Design</h2>
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline.png" alt="OmniCount Pipeline" class="full-width">
+            <p style="text-align: center;">OmniCount Pipeline: Our method starts by processing the input image and their target object classes, using Semantic Estimation and Geometric Estimation modules to generate class-specific masks and depth maps. These initial priors are refined with a Semantic Refinement module for accuracy, creating precise binary masks of target objects. The refined masks help in obtaining RGB patches for each class and also extracting reference points to reduce overcounting. SAM uses these RGB patches and reference points to create instance-level masks, yielding precise object counts. &#x2744; represents frozen pre-trained models.</p>
+        </div>
+        <div class="section">
+            <h2 style="text-align: center;">Improving Counting using Priors</h2>
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/refinement.png" alt="OmniCount Pipeline" class="full-width">
+            <p style="text-align: center;">Reference Point Selection: SAM’s segmentation accuracy is enhanced by refining reference point selection. Panel (A) shows how integrating semantic priors, identifying local maxima, and applying Gaussian refinement improve reference point accuracy, focusing them on foreground objects for better segmentation and counting. Panel (B) demonstrates the benefits of incorporating semantic and geometric priors, where depth-based recovery and precise reference points help SAM recover distant or occluded objects, reducing over-segmentation issues found in the default "everything mode"</p>
+        </div>
+        <div class="section">
+            <h2 style="text-align: center;">Results</h2>
+            <div class="comparison-blocks">
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/agr1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Potatoes: 4, Apples: 2, Bananas: 3, Onions: 4</p>
+                </div>
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/birds1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/birds1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Crow: 9, Pigeons: 10</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/fruits/fruits1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/fruits/fruits1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Jackfruit: 1, Lichi: 12, Dragonfruit: 1, Pears: 27, Coconut: 3, Pineapple: 2</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/pets/pets1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/pets/pets1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Dog: 1, Cats: 1, Rabbit: 1, Bird: 1, Guineapig: 1, Boar: 1</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/urban1.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/urban1_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Cars: 7</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/house/343.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/house/343_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Strawberries: 16, Kiwis: 14</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/urban3.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/urban3_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Person: 81</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/wild/wild2.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/wild/wild2_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Elephant: 1, Buffaloes: 3</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/london.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/urban/london_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Person: 45</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/pulses.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/agr/pulses_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Beans: 33, Green peas: 169</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/penguin.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/birds/penguin_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Penguins: 197</p>
+                </div>
+
+                <div class="image-block">
+                    <div class="image-compare-container">
+                        <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/fruits/fruits.jpg" alt="Image 1A">
+                        <div class="overlay">
+                            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/demo/fruits/fruits_mask.png" alt="Image 1B">
+                        </div>
+                        <div class="slider"></div>
+                    </div>
+                    <p class="image-caption">Apples: 79, Peaches: 10</p>
+                </div>
+
+                
+            </div>
+        </div>
+        <div class="section">
+            <h2 style="text-align: center;">Omnicount-191 Benchmark</h2>
+            <img src="https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount191.png" alt="OmniCount-191 Benchmark" class="full-width">
+            <p>OmniCount-191: A comprehensive benchmark for multi-label object counting. The dataset consists of 30,230 images with multi-label object counts, including points, bounding boxes, and VQA annotations.</p>
+        </div>
+        <div class="section">
+            <h2 style="text-align: center;">BibTeX</h2>
+            <center><pre><code>@article{mondal2024omnicount,
+                title={OmniCount: Multi-label Object Counting with Semantic-Geometric Priors},
+                author={Mondal, Anindya and Nag, Sauradip and Zhu, Xiatian and Dutta, Anjan},
+                journal={arXiv preprint arXiv:2403.05435},
+                year={2024}
+            }
+            </code></pre></center>
+        </div>
+
+        <div class="section">
+            <h2 style="text-align: center;">License</h2>
+            <p style="text-align: center;">Object counting has legitimate commercial applications in urban planning, event logistics, and consumer behaviour analysis. However, said technology concurrently facilitates human surveillance capabilities, which unscrupulous actors may intentionally or unintentionally misappropriate for nefarious purposes. As such, we must exercise reasoned scepticism towards any downstream deployment of our research that enables the monitoring of individuals without proper legal safeguards and ethical constraints. Therefore, to mitigate foreseeable misuse and uphold principles of privacy and civil liberties, we release our work under the Open RAIL-S License, which prohibits exploitative applications through robust contractual obligations and liabilities.</p>
+        </div>
+
+        <div class="section">
+            <!-- <h2 style="text-align: center;">Acknowledgement</h2> -->
+            <p style="text-align: center; font-size: 10px; ">Inspired by <a href="https://nerfies.github.io/">Nerfies</a>. Thanks to <a href="https://www.linkedin.com/in/manisha-saha-373052341/">Manisha</a> for her exceptional UI/UX design insights.</p>
+        </div>
+    </div> <!-- Closing the main container div -->
+    </div> <!-- Closing the outer container div -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.image-compare-container').forEach(container => {
+                const slider = container.querySelector('.slider');
+                const overlay = container.querySelector('.overlay');
+                let isDown = false;
+
+                slider.addEventListener('mousedown', () => {
+                    isDown = true;
+                    slider.classList.add('active');
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                });
+
+                const debounce = (func, wait) => {
+                    let timeout;
+                    return (...args) => {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => func.apply(this, args), wait);
+                    };
+                };
+
+                document.addEventListener('mousemove', debounce((e) => {
+                    if (!isDown) return;
+                    const rect = container.getBoundingClientRect();
+                    const x = e.pageX - rect.left;
+                    const walk = Math.max(0, Math.min(x, rect.width));
+                    slider.style.left = `${walk}px`;
+                    overlay.style.clipPath = `inset(0 ${rect.width - walk}px 0 0)`;
+                }, 10));
+            });
+        });
+    </script>
+    <center class="noclick">
+    <a href='https://clustrmaps.com/site/1bt1g'  title='Visit tracker'><img src='//clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=VUWsmjs9vT_QHmhAr6OuY_eMPD1CJyQ5FGORa626Ips&co=37a1ec&ct=ffffff'width="0.003" height="0.002"/></a>
+    </center>
+</div>
+</body>
+</html>

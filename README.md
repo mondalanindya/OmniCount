@@ -1,88 +1,19 @@
-## Method At A Glance
+# [AAAI 2025] Official code for "OmniCount: Multi-label Object Counting with Semantic-Geometric Priors"
 
-1. Depth prediction: Marigold estimates depth maps for each image.
-2. Open-vocabulary mask proposal: SAN produces class-conditioned binary masks.
-3. Mask refinement: depth and morphology-based filtering improves mask quality.
-4. Counting pipeline: SAM-backed region selection and CLIP-based scoring aggregate counts.
-5. Evaluation: RMSE/relRMSE style metrics on dataset-specific outputs.
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-pascal-voc-2007-count-test)](https://paperswithcode.com/sota/object-counting-on-pascal-voc-2007-count-test?p=omnicount-multi-label-object-counting-with) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-fsc147)](https://paperswithcode.com/sota/training-free-object-counting-on-fsc147?p=omnicount-multi-label-object-counting-with) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/training-free-object-counting-on-omnicount)](https://paperswithcode.com/sota/training-free-object-counting-on-omnicount?p=omnicount-multi-label-object-counting-with) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/omnicount-multi-label-object-counting-with/object-counting-on-omnicount-191)](https://paperswithcode.com/sota/object-counting-on-omnicount-191?p=omnicount-multi-label-object-counting-with)
 
-## Repository Layout
+## Authors
+[Anindya Mondal*](https://scholar.google.com/citations?user=qjQmNJMAAAAJ&hl=en), [Sauradip Nag*](https://sauradip.github.io/), [Xiatian Zhu](https://surrey-uplab.github.io/), [Anjan Dutta](https://sites.google.com/site/2adutta/).
 
-```
-omniCount/
-├── core/                      counting and inference pipelines
-├── preprocessing/             depth/mask refinement and patch extraction
-├── metrics/                   evaluation scripts
-├── visualization/             overlays and analysis utilities
-├── baselines/                 CLIPSeg baseline experiments
-├── dataset_stat/              dataset summary helpers
-├── scripts/                   utility scripts and project wrappers
-├── external/                  upstream submodules (SAM, SAN, Marigold, etc.)
-├── paths.py                   repo-relative path helpers
-├── requirements.txt           outer-repo dependencies
-└── README.md
-```
 
-`scripts/project_wrappers/` contains OmniCount-specific launch wrappers layered over upstream repos.
+[[ArXiv]](https://arxiv.org/abs/2403.05435)
+# Abstract
 
-# OmniCount: Multi-label Object Counting with Semantic-Geometric Priors
+Object counting is pivotal for understanding the composition of scenes. Previously, this task was dominated by class-specific methods, which have gradually evolved into more adaptable class-agnostic strategies. However, these strategies come with their own set of limitations, such as the need for manual exemplar input and multiple passes for multiple categories, resulting in significant inefficiencies. This paper introduces a new, more practical approach enabling simultaneous counting of multiple object categories using an open vocabulary framework. Our solution, OmniCount, stands out by using semantic and geometric insights from pre-trained models to count multiple categories of objects as specified by users, all without additional training. OmniCount distinguishes itself by generating precise object masks and leveraging point prompts via the Segment Anything Model for efficient counting. To evaluate OmniCount, we created the OmniCount-191 benchmark, a first-of-its-kind dataset with multi-label object counts, including points, bounding boxes, and VQA annotations. Our comprehensive evaluation in OmniCount-191, alongside other leading benchmarks, demonstrates OmniCount's exceptional performance, significantly outpacing existing solutions and heralding a new era in object counting technology.
 
-## [AAAI 2025](https://aaai.org/Conferences/AAAI-25/)
 
-[Download](https://github.com/mondalanindya/OmniCount/raw/refs/heads/main/OmniCount-191.zip) | [Paper](https://ojs.aaai.org/index.php/AAAI/article/view/34151) | [Code](https://github.com/mondalanindya/OmniCount/)
+![image](https://github.com/mondalanindya/OmniCount/blob/main/assets/figs/pipeline_v2.png)
 
-TL;DR: OmniCount introduces a training-free framework and the OmniCount-191 dataset for counting multiple object categories in a single pass using pre-trained semantic and geometric priors.
 
-## Object Counting Paradigms
 
-![OmniCount Teaser](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount_teaser.png)
 
-Typical single-label object counting methods usually process one category at a time. OmniCount instead targets multi-label, open-vocabulary counting in a single pass.
-
-## Abstract
-
-OmniCount is a practical framework for simultaneous counting of multiple object categories without extra training. It combines semantic and geometric priors from pre-trained models, produces precise masks, and supports varied prompts through SAM to improve counting accuracy.
-
-## Video
-
-## OmniCount: Model Design
-
-![OmniCount Pipeline](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline.png)
-
-OmniCount starts from an input image and target object classes, uses semantic and geometric estimation modules to generate class-specific masks and depth maps, refines these priors, and then passes patches and reference points into SAM for final counting.
-
-## Improving Counting using Priors
-
-![OmniCount Pipeline](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/refinement.png)
-
-Reference point selection is improved by combining semantic priors, local maxima, and Gaussian refinement. Depth-guided recovery helps reduce over-segmentation and improves object recovery for occluded or distant instances.
-
-## Results
-
-Representative examples from the OmniCount-191 benchmark and related datasets show consistent multi-label counts across agriculture, birds, fruits, pets, urban scenes, and wildlife.
-
-## OmniCount-191 Benchmark
-
-![OmniCount-191 Benchmark](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount191.png)
-
-OmniCount-191 is a benchmark for multi-label object counting with 30,230 images and annotations for point, box, and VQA-style supervision.
-
-## BibTeX
-
-```bibtex
-@inproceedings{mondal2025omnicount,
-	title={Omnicount: Multi-label object counting with semantic-geometric priors},
-	author={Mondal, Anindya and Nag, Sauradip and Zhu, Xiatian and Dutta, Anjan},
-	booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-	volume={39},
-	number={18},
-	pages={19537--19545},
-	year={2025}
-}
-```
-
-## License
-
-Open RAIL-S License.
-
-Inspired by [Nerfies](https://nerfies.github.io/). Thanks to Manisha for UI/UX design insights.
