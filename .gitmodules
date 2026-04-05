@@ -1,0 +1,15 @@
+[submodule "external/sam"]
+	path = external/sam
+	url = https://github.com/facebookresearch/segment-anything.git
+[submodule "external/clips"]
+	path = external/clips
+	url = https://github.com/xmed-lab/CLIP_Surgery.git
+[submodule "external/GroundingDINO"]
+	path = external/GroundingDINO
+	url = https://github.com/IDEA-Research/GroundingDINO.git
+[submodule "external/SAN"]
+	path = external/SAN
+	url = https://github.com/MendelXu/SAN.git
+[submodule "external/Marigold"]
+	path = external/Marigold
+	url = https://github.com/prs-eth/Marigold.git

@@ -1,0 +1,77 @@
+# Model checkpoints
+*.pth
+*.pt
+*.ckpt
+*.onnx
+**/checkpoints/
+**/*.bin
+
+# All outputs
+outputs/
+outputs_sota/
+outputs_clipseg/
+hmap/
+*_overlay.*
+*_pred.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+._.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Experiment logs & results
+*.log
+*.csv
+*.json
+!configs/
+
+# Depth maps and intermediate results
+depth/
+depth_bw/
+binary_masks/
+refined_bin_masks/
+sam_patches/
+patches/
+images/
+
+# External submodule build artifacts
+**/build/
+**/dist/
