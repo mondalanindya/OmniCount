@@ -12,13 +12,18 @@ from torchvision.transforms import InterpolationMode
 BICUBIC = InterpolationMode.BICUBIC
 from tfoc.shi_segment_anything import sam_model_registry, SamPredictor
 from tfoc.shi_segment_anything.automatic_mask_generator import SamAutomaticMaskGenerator
-from sam.segment_anything.automatic_mask_generator import SamAutomaticMaskGenerator as SamAutomaticMaskGenerator1
 from tfoc.utils import *
 from transformers import AutoProcessor, CLIPSegVisionModel
 from scipy.ndimage import gaussian_filter
 from clips import clip
 import os
 from paths import OUTPUTS_ROOT, REPO_ROOT
+from core.paper_config import (
+    REFERENCE_POINT_MIN_DISTANCE,
+    REFERENCE_POINT_SIGMA,
+    SAM_CHECKPOINT_NAME,
+    SAM_MODEL_TYPE,
+)
 
 def refine_count(cls_id, patch_path, mask_path, target_texts):
     if not os.path.exists(patch_path) or not os.path.exists(mask_path):
@@ -30,7 +35,6 @@ def refine_count(cls_id, patch_path, mask_path, target_texts):
         return
         
     
-    sam_anything = False
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model, _ = clip.load("ViT-B/16", device=device)
     model.eval()
@@ -80,28 +84,25 @@ def refine_count(cls_id, patch_path, mask_path, target_texts):
     org_res.shape
 
     hadamard = hadamard.squeeze()
-    smoothed = cv2.GaussianBlur(hadamard, (5, 5), sigmaX=0)
-    coordinates = peak_local_max(smoothed, min_distance=10, threshold_rel=0.9)
+    smoothed = gaussian_filter(hadamard, sigma=REFERENCE_POINT_SIGMA)
+    coordinates = peak_local_max(
+        smoothed,
+        min_distance=REFERENCE_POINT_MIN_DISTANCE,
+        threshold_rel=0.9,
+    )
     flipped_coordinates = [[y, x] for x, y in coordinates]
 
-    if len(flipped_coordinates) == 0 or len(flipped_coordinates) < 1:
-        sam_anything = True
-
-    sam_checkpoint = str(REPO_ROOT / "sam_vit_b_01ec64.pth")
-    model_type = "vit_b"
+    sam_checkpoint = str(REPO_ROOT / SAM_CHECKPOINT_NAME)
+    model_type = SAM_MODEL_TYPE
     device = "cuda"
     sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
     sam.to(device=device)
-    if sam_anything:
-        mask_generator = SamAutomaticMaskGenerator1(sam)
-        masks = mask_generator.generate(np.asarray(pil_img))
-    else:
-        mask_generator = SamAutomaticMaskGenerator(sam)
-        masks = mask_generator.generate(np.asarray(pil_img), flipped_coordinates)
-
-    if len(masks) < 0:
-        mask_generator = SamAutomaticMaskGenerator1(sam)
-        masks = mask_generator.generate(np.asarray(pil_img))
+    mask_generator = SamAutomaticMaskGenerator(sam)
+    masks = (
+        mask_generator.generate(np.asarray(pil_img), flipped_coordinates)
+        if flipped_coordinates
+        else []
+    )
 
     # Create output directory
     output_path = str(OUTPUTS_ROOT / "pascal_voc_test" / "sam_patches" / cls_id / target_texts)

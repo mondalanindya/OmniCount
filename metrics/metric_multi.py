@@ -15,6 +15,8 @@ def calculate_metrics(ground_truth, predictions):
     sum_rel_sq_error = {}
     non_zero_count = {}
     total_images = len(ground_truth)
+    if total_images == 0:
+        raise ValueError("ground_truth must contain at least one image")
     sum_final = 0
     # Initialize sums for non-zero counts
     for key in ground_truth.values():
@@ -44,54 +46,27 @@ def calculate_metrics(ground_truth, predictions):
     rel_rmse_nz = {class_name: np.sqrt(sum_rel_sq_error[class_name] / non_zero_count[class_name]) for class_name in sum_rel_sq_error if non_zero_count[class_name] > 0}
 
     # Calculate mean metrics
-    m_rmse = 0
-    m_rmse_nz =0
-    m_rel_rmse = 0
-    m_rel_rmse_nz = 0
-
-    for i in range(len(list(rmse.values()))):
-        m_rmse+=list(rmse.values())[i]
-    
-    for j in range(len([value for key, value in rmse_nz.items()])):
-        m_rmse_nz+= [value for key, value in rmse_nz.items()][j]
-
-    for k in range(len(list(rel_rmse.values()))):
-        m_rel_rmse+=list(rel_rmse.values())[k]
-
-    for l in range(len([value for key, value in rel_rmse_nz.items()])):
-        m_rel_rmse_nz+= [value for key, value in rel_rmse_nz.items()][l]
-
-    m_rmse = m_rmse/total_images
-    m_rmse_nz = m_rmse_nz/total_images
-    m_rel_rmse = m_rel_rmse/total_images
-    m_rel_rmse_nz = m_rel_rmse_nz/total_images
-
-
-    # m_rmse = list(rmse.values())/total_images
-    # m_rmse_nz = [value for key, value in rmse_nz.items()]/total_images
-    # m_rel_rmse = list(rel_rmse.values())/total_images
-    # m_rel_rmse_nz = [value for key, value in rel_rmse_nz.items()] / total_images
+    # The paper defines mRMSE as the mean of the per-category RMSE values.
+    # The nonzero variants average only over categories with nonzero examples.
+    m_rmse = float(np.mean(list(rmse.values()))) if rmse else 0.0
+    m_rmse_nz = float(np.mean(list(rmse_nz.values()))) if rmse_nz else 0.0
+    m_rel_rmse = float(np.mean(list(rel_rmse.values()))) if rel_rmse else 0.0
+    m_rel_rmse_nz = (
+        float(np.mean(list(rel_rmse_nz.values()))) if rel_rmse_nz else 0.0
+    )
 
     return rmse, rmse_nz, rel_rmse, rel_rmse_nz, m_rmse, m_rmse_nz, m_rel_rmse, m_rel_rmse_nz
 
 
 
-ground_truth_file_path = OUTPUTS_ROOT / "animals" / "animal_gt.json"
-prediction_file_path = OUTPUTS_ROOT / "animals" / "animal_pred_1.json"
+if __name__ == "__main__":
+    ground_truth_file_path = OUTPUTS_ROOT / "animals" / "animal_gt.json"
+    prediction_file_path = OUTPUTS_ROOT / "animals" / "animal_pred_1.json"
 
-# Correctly load the JSON files using the load_json_file function
-ground_truth = load_json_file(ground_truth_file_path)
-predictions = load_json_file(prediction_file_path)
-
-# Now, the ground_truth and predictions are correctly loaded dictionaries that can be passed to calculate_metrics
-metrics = calculate_metrics(ground_truth, predictions)
-# print("RMSE:", metrics[0])
-# print("RMSE-nz:", metrics[1])
-# print("relRMSE:", metrics[2])
-# print("relRMSE-nz:", metrics[3])
-print("Mean RMSE:", metrics[4])
-print("Mean RMSE-nz:", metrics[5])
-print("Mean relRMSE:", metrics[6])
-print("Mean relRMSE-nz:", metrics[7])
-
-
+    ground_truth = load_json_file(ground_truth_file_path)
+    predictions = load_json_file(prediction_file_path)
+    metrics = calculate_metrics(ground_truth, predictions)
+    print("Mean RMSE:", metrics[4])
+    print("Mean RMSE-nz:", metrics[5])
+    print("Mean relRMSE:", metrics[6])
+    print("Mean relRMSE-nz:", metrics[7])

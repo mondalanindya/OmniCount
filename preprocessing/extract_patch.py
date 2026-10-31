@@ -85,6 +85,7 @@ import numpy as np
 from PIL import Image
 import random
 from paths import OUTPUTS_ROOT
+from core.paper_config import DEPTH_SEARCH_WINDOW, DEPTH_THRESHOLD
 
 base_rgb_path = str(OUTPUTS_ROOT / "animals" / "images")
 base_mask_path = str(OUTPUTS_ROOT / "animals" / "binary_masks")
@@ -108,8 +109,8 @@ def process_binary_mask(binary_mask, other_masks, depth_map_array_normalized, im
     mask_indices = np.nonzero(binary_mask)
     mean_depth = np.mean(depth_map_array_normalized[mask_indices])
     refined_mask = np.zeros_like(binary_mask)
-    tolerance = 0.2
-    win = 5
+    tolerance = DEPTH_THRESHOLD
+    win = DEPTH_SEARCH_WINDOW
     if is_valid_sem == 1:
         for x, y in edge_indices:
             for k in range(x-win, x+win):
