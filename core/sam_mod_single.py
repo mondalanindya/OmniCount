@@ -45,7 +45,6 @@ print(patch_path)
 pil_img = Image.open(patch_path)
 cv2_img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
 image = preprocess(pil_img).unsqueeze(0).to(device)
-all_texts = ['airplane', 'bag', 'strawberries', 'bedclothes', 'bench', 'bicycle', 'bird', 'boat', 'book', 'bottle', 'building', 'bus', 'cabinet', 'car', 'cat', 'ceiling', 'chair', 'cloth', 'computer', 'cow', 'cup', 'curtain', 'dog', 'door', 'fence', 'floor', 'flower', 'food', 'grass', 'ground', 'horse', 'keyboard', 'light', 'motorbike', 'mountain', 'mouse', 'person', 'plate', 'platform', 'potted plant', 'road', 'rock', 'sheep', 'shelves', 'sidewalk', 'sign', 'sky', 'snow', 'sofa', 'table', 'track', 'train', 'tree', 'truck', 'tv monitor', 'wall', 'water', 'window', 'wood']
 target_texts = ['apples']
 
 
@@ -60,7 +59,7 @@ with torch.no_grad():
     image_features = image_features / image_features.norm(dim=1, keepdim=True)
 
     # Prompt ensemble for text features with normalization
-    text_features = clip.encode_text_with_prompt_ensemble(model, all_texts, device)
+    text_features = clip.encode_text_with_prompt_ensemble(model, target_texts, device)
 
     # Apply feature surgery
     similarity = clip.clip_feature_surgery(image_features, text_features)
@@ -69,9 +68,6 @@ with torch.no_grad():
     # Draw similarity map
     for b in range(similarity_map.shape[0]):
         for n in range(similarity_map.shape[-1]):
-            # print(all_texts[n], target_texts)
-            # if all_texts[n] not in target_texts:
-            #     continue
             vis = (similarity_map[b, :, :, n].cpu().numpy() * 255).astype('uint8')
             vis = cv2.applyColorMap(vis, cv2.COLORMAP_JET)
             vis = cv2_img * 0.4 + vis * 0.6
@@ -99,7 +95,7 @@ expanded_mask = binary_mask_tensor.unsqueeze(0)
 result = pooled_hidden_state * expanded_mask
 result.dtype
 
-new_mask = similarity_map.mean(dim=3).squeeze(0)
+new_mask = similarity_map[:, :, :, 0].squeeze(0)
 new_mask = new_mask.cpu().detach().numpy()
 exp_mask = expanded_mask.cpu().detach().numpy()
 exp_mask1 = exp_mask/255.0
