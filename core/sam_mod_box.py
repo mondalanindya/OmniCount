@@ -40,7 +40,6 @@ def refine_count(cls_id, patch_path, mask_path, target_texts, prompt_type, annot
     raw_img = Image.open(raw_image_list)
     cv2_img = cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
     image = preprocess(pil_img).unsqueeze(0).to(device)
-    all_texts = ['airplane', 'bag', 'strawberries', 'bedclothes', 'bench', 'bicycle', 'bird', 'boat', 'book', 'bottle', 'building', 'bus', 'cabinet', 'car', 'cat', 'ceiling', 'chair', 'cloth', 'computer', 'cow', 'cup', 'curtain', 'dog', 'door', 'fence', 'floor', 'flower', 'food', 'grass', 'ground', 'horse', 'keyboard', 'light', 'motorbike', 'mountain', 'mouse', 'person', 'plate', 'platform', 'potted plant', 'road', 'rock', 'sheep', 'shelves', 'sidewalk', 'sign', 'sky', 'snow', 'sofa', 'table', 'track', 'train', 'tree', 'truck', 'tv monitor', 'wall', 'water', 'window', 'wood']
     target_texts = target_texts
 
     model, preprocess = clip.load("CS-ViT-B/16", device=device)
@@ -49,7 +48,9 @@ def refine_count(cls_id, patch_path, mask_path, target_texts, prompt_type, annot
     with torch.no_grad():
         image_features = model.encode_image(image)
         image_features = image_features / image_features.norm(dim=1, keepdim=True)
-        text_features = clip.encode_text_with_prompt_ensemble(model, all_texts, device)
+        text_features = clip.encode_text_with_prompt_ensemble(
+            model, [target_texts], device
+        )
         similarity = clip.clip_feature_surgery(image_features, text_features)
         similarity_map = clip.get_similarity_map(similarity[:, 1:, :], cv2_img.shape[:2])
 
@@ -68,7 +69,7 @@ def refine_count(cls_id, patch_path, mask_path, target_texts, prompt_type, annot
     result = pooled_hidden_state * expanded_mask
     result.dtype
 
-    new_mask = similarity_map.mean(dim=3).squeeze(0)
+    new_mask = similarity_map[:, :, :, 0].squeeze(0)
     new_mask = new_mask.cpu().detach().numpy()
     exp_mask = expanded_mask.cpu().detach().numpy()
     exp_mask1 = exp_mask/255.0
