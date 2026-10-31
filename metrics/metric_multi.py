@@ -10,36 +10,45 @@ def load_json_file(file_path):
 
 
 def calculate_metrics(ground_truth, predictions):
-    # Initialize variables to store sum of errors for RMSE and relRMSE
-    sum_sq_error = {}
-    sum_rel_sq_error = {}
-    non_zero_count = {}
+    """Calculate category-averaged RMSE metrics for multi-label counts.
+
+    Each category is evaluated over every image. Missing ground-truth or
+    prediction entries are therefore treated as zero, so false positives and
+    false negatives are both included.
+    """
     total_images = len(ground_truth)
     if total_images == 0:
         raise ValueError("ground_truth must contain at least one image")
-    sum_final = 0
-    # Initialize sums for non-zero counts
-    for key in ground_truth.values():
-        for class_name in key.keys():
-            sum_sq_error[class_name] = 0
-            sum_rel_sq_error[class_name] = 0
-            non_zero_count[class_name] = 0
 
-    # Calculate squared errors
+    class_names = {
+        class_name
+        for counts in ground_truth.values()
+        for class_name in counts
+    }
+    class_names.update(
+        class_name
+        for counts in predictions.values()
+        for class_name in counts
+    )
+    class_names = sorted(class_names)
+    sum_sq_error = {class_name: 0.0 for class_name in class_names}
+    sum_rel_sq_error = {class_name: 0.0 for class_name in class_names}
+    non_zero_count = {class_name: 0 for class_name in class_names}
+    sum_final = 0
+
     for image_id, counts in ground_truth.items():
         pred_counts = predictions.get(image_id, {})
-        for class_name, gt_count in counts.items():
+        for class_name in class_names:
+            gt_count = counts.get(class_name, 0)
             pred_count = pred_counts.get(class_name, 0)
             diff = abs(pred_count - gt_count)
-            # print(image_id, diff)
-            sum_final+=diff
+            sum_final += diff
             sum_sq_error[class_name] += diff ** 2
             sum_rel_sq_error[class_name] += (diff ** 2) / (gt_count + 1)
-            
             if gt_count > 0:
                 non_zero_count[class_name] += 1
+
     print("Sum of absolute differences:", sum_final)
-    # Calculate metrics
     rmse = {class_name: np.sqrt(sum_sq_error[class_name] / total_images) for class_name in sum_sq_error}
     rmse_nz = {class_name: np.sqrt(sum_sq_error[class_name] / non_zero_count[class_name]) for class_name in sum_sq_error if non_zero_count[class_name] > 0}
     rel_rmse = {class_name: np.sqrt(sum_rel_sq_error[class_name] / total_images) for class_name in sum_rel_sq_error}
