@@ -7,7 +7,7 @@ VOCAB_FILE="$REPO_ROOT/outputs_sota/animals/animal_gt.txt"
 OUTPUT_BASE_DIR="$REPO_ROOT/outputs_sota/animals/binary_masks"
 CONFIG_FILE="$REPO_ROOT/external/SAN/configs/san_clip_vit_large_res4_coco.yaml"
 MODEL_PATH="$REPO_ROOT/external/SAN/models/san_vit_large_14.pth"
-PREDICT_SCRIPT="$REPO_ROOT/external/SAN/project_wrappers/predict.py"
+PREDICT_SCRIPT="$REPO_ROOT/external/SAN/predict.py"
 
 if [ ! -f "$VOCAB_FILE" ]; then
     echo "Vocabulary file not found: $VOCAB_FILE"

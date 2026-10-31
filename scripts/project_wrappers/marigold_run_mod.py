@@ -10,6 +10,11 @@ from tqdm.auto import tqdm
 
 from marigold import MarigoldPipeline
 from marigold.util.seed_all import seed_all
+from core.paper_config import (
+    MARIGOLD_CHECKPOINT,
+    MARIGOLD_DENOISING_STEPS,
+    MARIGOLD_ENSEMBLE_SIZE,
+)
 
 EXTENSION_LIST = [".jpg", ".jpeg", ".png"]
 
@@ -20,11 +25,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Run single-image depth estimation using Marigold."
     )
-    parser.add_argument("--checkpoint", type=str, default="Bingxin/Marigold")
+    parser.add_argument("--checkpoint", type=str, default=MARIGOLD_CHECKPOINT)
     parser.add_argument("--input_rgb_dir", type=str, required=True)
     parser.add_argument("--output_dir", type=str, required=True)
-    parser.add_argument("--denoise_steps", type=int, default=10)
-    parser.add_argument("--ensemble_size", type=int, default=10)
+    parser.add_argument("--denoise_steps", type=int, default=MARIGOLD_DENOISING_STEPS)
+    parser.add_argument("--ensemble_size", type=int, default=MARIGOLD_ENSEMBLE_SIZE)
     parser.add_argument("--half_precision", action="store_true")
     parser.add_argument("--processing_res", type=int, default=768)
     parser.add_argument("--output_processing_res", action="store_true")

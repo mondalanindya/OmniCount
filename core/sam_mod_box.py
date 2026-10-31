@@ -19,6 +19,7 @@ from scipy.ndimage import gaussian_filter
 from clips import clip
 import os
 from paths import OUTPUTS_ROOT, REPO_ROOT
+from core.paper_config import SAM_MIN_MASK_REGION_AREA, SAM_POINTS_PER_SIDE
 import json
 
 
@@ -100,7 +101,11 @@ def refine_count(cls_id, patch_path, mask_path, target_texts, prompt_type, annot
             mask_generator = SamAutomaticMaskGenerator1(sam)
             masks = mask_generator.generate(np.asarray(pil_img))
         else:
-            mask_generator = SamAutomaticMaskGenerator(sam)
+            mask_generator = SamAutomaticMaskGenerator(
+                sam,
+                points_per_side=SAM_POINTS_PER_SIDE,
+                min_mask_region_area=SAM_MIN_MASK_REGION_AREA,
+            )
             masks = mask_generator.generate(np.asarray(pil_img), flipped_coordinates)
 
         if len(masks) < 5:
@@ -118,7 +123,11 @@ def refine_count(cls_id, patch_path, mask_path, target_texts, prompt_type, annot
             elif prompt_type =='point':
                 input_prompt.append([(x1+x2)//2, (y1+y2)//2])
 
-        mask_generator = SamAutomaticMaskGenerator(sam)
+        mask_generator = SamAutomaticMaskGenerator(
+            sam,
+            points_per_side=SAM_POINTS_PER_SIDE,
+            min_mask_region_area=SAM_MIN_MASK_REGION_AREA,
+        )
         masks = mask_generator.generate(np.asarray(raw_img), input_prompt)
         # masks = mask_generator.generate(image, input_prompt)
 

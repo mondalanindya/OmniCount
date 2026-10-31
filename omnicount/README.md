@@ -25,9 +25,18 @@ The paper reports SAN ViT-Large and SAM ViT-Base. The executable counting
 pipelines use `sam_vit_b_01ec64.pth`; the ViT-H checkpoint is not the
 published OmniCount configuration. Reference-point refinement uses the
 reported 10-pixel depth window, depth threshold `0.3`, `K=16`, `C=256`,
-Gaussian sigma `0.4`, and a four-pixel local-maxima spacing.
+Gaussian sigma `0.4`, and a four-pixel local-maxima spacing. The fallback
+SAM grid is explicitly configured to 32 points per side with a minimum
+retained region area of 25 pixels.
 
 Counts are the number of retained SAM instance masks after empty or
 insignificantly small masks have been discarded. `metrics/metric_multi.py`
-computes mRMSE as the mean of the per-category RMSE values, matching the
-paper's category-averaged definition.
+computes mRMSE as the mean of the per-category RMSE values over all images,
+matching the paper's category-averaged definition. Missing labels are
+treated as zero for both ground truth and prediction.
+
+The paper's depth experiments use the original Marigold checkpoint
+`prs-eth/marigold-depth-v1-0`, 50 denoising steps, and ensemble size 10.
+The OmniCount-191 zero-shot split contains 118 training classes and 73
+test classes (26,978 and 3,252 images); its manifest is distributed with
+the dataset rather than this code repository.

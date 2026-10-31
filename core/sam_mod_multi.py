@@ -22,7 +22,9 @@ from core.paper_config import (
     REFERENCE_POINT_MIN_DISTANCE,
     REFERENCE_POINT_SIGMA,
     SAM_CHECKPOINT_NAME,
+    SAM_MIN_MASK_REGION_AREA,
     SAM_MODEL_TYPE,
+    SAM_POINTS_PER_SIDE,
 )
 
 def refine_count(cls_id, patch_path, mask_path, target_texts):
@@ -97,7 +99,11 @@ def refine_count(cls_id, patch_path, mask_path, target_texts):
     device = "cuda"
     sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
     sam.to(device=device)
-    mask_generator = SamAutomaticMaskGenerator(sam)
+    mask_generator = SamAutomaticMaskGenerator(
+        sam,
+        points_per_side=SAM_POINTS_PER_SIDE,
+        min_mask_region_area=SAM_MIN_MASK_REGION_AREA,
+    )
     masks = (
         mask_generator.generate(np.asarray(pil_img), flipped_coordinates)
         if flipped_coordinates
