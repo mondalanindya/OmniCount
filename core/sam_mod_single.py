@@ -13,7 +13,6 @@ BICUBIC = InterpolationMode.BICUBIC
 # from tfoc.shi_segment_anything import sam_model_registry, SamPredictor
 from sam.segment_anything import sam_model_registry, SamPredictor
 from tfoc.shi_segment_anything.automatic_mask_generator import SamAutomaticMaskGenerator
-from sam.segment_anything.automatic_mask_generator import SamAutomaticMaskGenerator as SamAutomaticMaskGenerator1
 from tfoc.utils import *
 import requests
 from transformers import AutoProcessor, CLIPSegVisionModel
@@ -22,6 +21,12 @@ from clips import clip
 import argparse
 import os
 from paths import OUTPUTS_ROOT, HMAP_ROOT, REPO_ROOT
+from core.paper_config import (
+    REFERENCE_POINT_MIN_DISTANCE,
+    REFERENCE_POINT_SIGMA,
+    SAM_CHECKPOINT_NAME,
+    SAM_MODEL_TYPE,
+)
 
 
 patch_path = str(OUTPUTS_ROOT / "FSC_test_split_single" / "patches" / "716" / "patch_apples.png")
@@ -70,7 +75,7 @@ with torch.no_grad():
             vis = cv2_img * 0.4 + vis * 0.6
             vis = cv2.cvtColor(vis.astype('uint8'), cv2.COLOR_BGR2RGB)
             cv2.imwrite(str(HMAP_ROOT / f"similarity_map_{n}.png"), vis)
-sam_checkpoint = str(REPO_ROOT / "sam_vit_h_4b8939.pth")
+sam_checkpoint = str(REPO_ROOT / SAM_CHECKPOINT_NAME)
 
 
 processor = AutoProcessor.from_pretrained("CIDAS/clipseg-rd64-refined")
@@ -106,7 +111,7 @@ org_res.shape
 
 
 hadamard = hadamard.squeeze()
-smoothed = cv2.GaussianBlur(hadamard, (5, 5), sigmaX=0)
+smoothed = gaussian_filter(hadamard, sigma=REFERENCE_POINT_SIGMA)
 # def taylor_refinement(smoothed, coordinates):
 #     updated_coordinates = []
 #     for coord in coordinates:
@@ -130,7 +135,11 @@ smoothed = cv2.GaussianBlur(hadamard, (5, 5), sigmaX=0)
 #                 coord_updated = np.round(coord_updated).astype(np.int64)
 #         updated_coordinates.append(coord_updated)
 #     return np.array(updated_coordinates)
-coordinates = peak_local_max(smoothed, min_distance=4, threshold_rel=0.8)
+coordinates = peak_local_max(
+    smoothed,
+    min_distance=REFERENCE_POINT_MIN_DISTANCE,
+    threshold_rel=0.8,
+)
 # print(coordinates, "old")
 # updated_coordinates = taylor_refinement(smoothed, coordinates)
 # print(updated_coordinates, "new")
@@ -138,15 +147,13 @@ flipped_coordinates = [[y, x] for x, y in coordinates]
 print(flipped_coordinates)
 
 
-sam_checkpoint = str(REPO_ROOT / "sam_vit_h_4b8939.pth")
-model_type = "vit_h"
+sam_checkpoint = str(REPO_ROOT / SAM_CHECKPOINT_NAME)
+model_type = SAM_MODEL_TYPE
 device = "cuda"
 sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)
 sam.to(device=device)
 mask_generator = SamAutomaticMaskGenerator(sam)
-mg = SamAutomaticMaskGenerator1(sam)
-# masks = mask_generator.generate(np.asarray(pil_img), flipped_coordinates)
-masks = mg.generate(np.asarray(pil_img))
+masks = mask_generator.generate(np.asarray(pil_img), flipped_coordinates)
 print(len(masks))
 # Create output directory
 # os.makedirs(output_path, exist_ok=True)
@@ -167,5 +174,3 @@ print(len(masks))
 #     filename = f'{os.path.splitext(patch_path)[0]}_{i}.png'
 #     overlay_and_save(np.asarray(pil_img), mask, output_path, filename)
 #     print(f"Overlayed mask saved at {output_path}/{filename}")
-
-

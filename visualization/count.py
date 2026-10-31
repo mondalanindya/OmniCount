@@ -545,30 +545,10 @@ for dir_name in os.listdir(base_dir):
             # Check if it's a directory
             if os.path.isdir(class_path):
                 image_files = glob.glob(os.path.join(class_path, "*.png"))
-                total_pixel_values = 0
-                image_count = 0
-                
-                # First pass: calculate total pixel values and number of images
-                for image_file in image_files:
-                    image = np.array(Image.open(image_file))
-                    total_pixel_values += np.mean(image)
-                    image_count += 1
-                
-                if image_count > 0:
-                    average_pixel_value = total_pixel_values / image_count
-                else:
-                    average_pixel_value = 0
-                
-                # Second pass: count images with pixel value greater than the average
-                qualifying_image_count = 0
-                for image_file in image_files:
-                    image = np.array(Image.open(image_file))
-                    if np.mean(image) > 1*average_pixel_value:
-                        qualifying_image_count += 1
-                
-                # Add to image id's dictionary only if the count is more than 0
-                if qualifying_image_count > 0:
-                    image_dict[class_name] = qualifying_image_count
+                # Each saved file represents one retained SAM instance mask.
+                # The generator has already removed empty/small regions.
+                if image_files:
+                    image_dict[class_name] = len(image_files)
 
         # Add to result
         if image_dict:  # Only add if there's at least one class with qualifying images

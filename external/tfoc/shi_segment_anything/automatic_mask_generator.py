@@ -63,8 +63,7 @@ class SamAutomaticMaskGenerator:
         """
         Using a SAM model, generates masks for the entire image.
         Generates a grid of point prompts over the image, then filters
-        low quality and duplicate masks. The default settings are chosen
-        for SAM with a ViT-H backbone.
+        low quality and duplicate masks.         The default settings follow the reference SAM implementation.
 
         Arguments:
           model (Sam): The SAM model to use for mask prediction.
